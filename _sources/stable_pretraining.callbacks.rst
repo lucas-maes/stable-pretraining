@@ -28,6 +28,14 @@ stable\_pretraining.callbacks.clip\_zero\_shot module
    :show-inheritance:
    :undoc-members:
 
+stable\_pretraining.callbacks.cpu\_offload module
+-------------------------------------------------
+
+.. automodule:: stable_pretraining.callbacks.cpu_offload
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 stable\_pretraining.callbacks.earlystop module
 ----------------------------------------------
 
@@ -116,6 +124,14 @@ stable\_pretraining.callbacks.rankme module
    :show-inheritance:
    :undoc-members:
 
+stable\_pretraining.callbacks.registry module
+---------------------------------------------
+
+.. automodule:: stable_pretraining.callbacks.registry
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 stable\_pretraining.callbacks.teacher\_student module
 -----------------------------------------------------
 
@@ -128,6 +144,14 @@ stable\_pretraining.callbacks.trainer\_info module
 --------------------------------------------------
 
 .. automodule:: stable_pretraining.callbacks.trainer_info
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+stable\_pretraining.callbacks.unused\_parameters module
+-------------------------------------------------------
+
+.. automodule:: stable_pretraining.callbacks.unused_parameters
    :members:
    :show-inheritance:
    :undoc-members:
