@@ -52,6 +52,14 @@ stable\_pretraining.utils.error\_handling module
    :show-inheritance:
    :undoc-members:
 
+stable\_pretraining.utils.flops module
+--------------------------------------
+
+.. automodule:: stable_pretraining.utils.flops
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 stable\_pretraining.utils.gdrive\_utils module
 ----------------------------------------------
 
@@ -84,6 +92,14 @@ stable\_pretraining.utils.log\_reader module
    :show-inheritance:
    :undoc-members:
 
+stable\_pretraining.utils.mae\_loss module
+------------------------------------------
+
+.. automodule:: stable_pretraining.utils.mae_loss
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 stable\_pretraining.utils.nn\_modules module
 --------------------------------------------
 
@@ -96,6 +112,14 @@ stable\_pretraining.utils.read\_csv\_logger module
 --------------------------------------------------
 
 .. automodule:: stable_pretraining.utils.read_csv_logger
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+stable\_pretraining.utils.stats module
+--------------------------------------
+
+.. automodule:: stable_pretraining.utils.stats
    :members:
    :show-inheritance:
    :undoc-members:

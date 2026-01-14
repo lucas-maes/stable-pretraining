@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>stable_pretraining.utils package &#8212; stable-pretraining 0.1.dev1+g1f4e9fd57 documentation</title>
+    <title>stable_pretraining.utils package &#8212; stable-pretraining 0.1.dev1+g4557ee0f9 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=08283e98"></script>
+    <script src="../_static/documentation_options.js?v=7a2a2cdd"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -134,7 +134,7 @@
   
   
   
-    <p class="title logo__title">stable-pretraining 0.1.dev1+g1f4e9fd57 documentation</p>
+    <p class="title logo__title">stable-pretraining 0.1.dev1+g4557ee0f9 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -435,6 +435,15 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.error_handling.with_hf_retry_ratelimit"><code class="docutils literal notranslate"><span class="pre">with_hf_retry_ratelimit()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-stable_pretraining.utils.flops">stable_pretraining.utils.flops module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.flops.BudgetedFlopCounterMode"><code class="docutils literal notranslate"><span class="pre">BudgetedFlopCounterMode</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.flops.BudgetedFlopCounterMode.total_flops"><code class="docutils literal notranslate"><span class="pre">BudgetedFlopCounterMode.total_flops</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.flops.FLOPBudgetExceeded"><code class="docutils literal notranslate"><span class="pre">FLOPBudgetExceeded</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.flops.flop_budget"><code class="docutils literal notranslate"><span class="pre">flop_budget()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-stable_pretraining.utils.gdrive_utils">stable_pretraining.utils.gdrive_utils module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.gdrive_utils.GDriveUploader"><code class="docutils literal notranslate"><span class="pre">GDriveUploader</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.gdrive_utils.GDriveUploader.get_folder_id"><code class="docutils literal notranslate"><span class="pre">GDriveUploader.get_folder_id()</span></code></a></li>
@@ -488,6 +497,10 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.log_reader.read_wandb_run"><code class="docutils literal notranslate"><span class="pre">read_wandb_run()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-stable_pretraining.utils.mae_loss">stable_pretraining.utils.mae_loss module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.mae_loss.mae_loss"><code class="docutils literal notranslate"><span class="pre">mae_loss()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-stable_pretraining.utils.nn_modules">stable_pretraining.utils.nn_modules module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.nn_modules.BatchNorm1dNoBias"><code class="docutils literal notranslate"><span class="pre">BatchNorm1dNoBias</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.nn_modules.EMA"><code class="docutils literal notranslate"><span class="pre">EMA</span></code></a><ul class="nav section-nav flex-column">
@@ -528,6 +541,10 @@ document.write(`
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.read_csv_logger.load_best_compressed"><code class="docutils literal notranslate"><span class="pre">load_best_compressed()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.read_csv_logger.save_best_compressed"><code class="docutils literal notranslate"><span class="pre">save_best_compressed()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-stable_pretraining.utils.stats">stable_pretraining.utils.stats module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.stats.mean_std"><code class="docutils literal notranslate"><span class="pre">mean_std()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-stable_pretraining.utils.timm_to_hf_hub">stable_pretraining.utils.timm_to_hf_hub module</a><ul class="nav section-nav flex-column">
@@ -609,6 +626,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.get_required_fn_parameters"><code class="docutils literal notranslate"><span class="pre">get_required_fn_parameters()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.is_dist_avail_and_initialized"><code class="docutils literal notranslate"><span class="pre">is_dist_avail_and_initialized()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.load_hparams_from_ckpt"><code class="docutils literal notranslate"><span class="pre">load_hparams_from_ckpt()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.mae_loss"><code class="docutils literal notranslate"><span class="pre">mae_loss()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.mean_std"><code class="docutils literal notranslate"><span class="pre">mean_std()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.replace_module"><code class="docutils literal notranslate"><span class="pre">replace_module()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.rgetattr"><code class="docutils literal notranslate"><span class="pre">rgetattr()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.rsetattr"><code class="docutils literal notranslate"><span class="pre">rsetattr()</span></code></a></li>
@@ -1188,6 +1207,60 @@ is not provided. Defaults to 10.</p></li>
 </dd></dl>
 
 </section>
+<section id="module-stable_pretraining.utils.flops">
+<span id="stable-pretraining-utils-flops-module"></span><h2>stable_pretraining.utils.flops module<a class="headerlink" href="#module-stable_pretraining.utils.flops" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="stable_pretraining.utils.flops.BudgetedFlopCounterMode">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stable_pretraining.utils.flops.</span></span><span class="sig-name descname"><span class="pre">BudgetedFlopCounterMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flop_counter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FlopCounterMode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">budget</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stable_pretraining/utils/flops/#BudgetedFlopCounterMode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stable_pretraining.utils.flops.BudgetedFlopCounterMode" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TorchDispatchMode</span></code></p>
+<p>FLOP counter with budget enforcement using composition.</p>
+<p>Wraps FlopCounterMode for counting, adds budget checking.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="stable_pretraining.utils.flops.BudgetedFlopCounterMode.total_flops">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">total_flops</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#stable_pretraining.utils.flops.BudgetedFlopCounterMode.total_flops" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="stable_pretraining.utils.flops.FLOPBudgetExceeded">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">stable_pretraining.utils.flops.</span></span><span class="sig-name descname"><span class="pre">FLOPBudgetExceeded</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">budget</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">current</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">operation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stable_pretraining/utils/flops/#FLOPBudgetExceeded"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stable_pretraining.utils.flops.FLOPBudgetExceeded" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Exception raised when FLOP budget is exceeded.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stable_pretraining.utils.flops.flop_budget">
+<span class="sig-prename descclassname"><span class="pre">stable_pretraining.utils.flops.</span></span><span class="sig-name descname"><span class="pre">flop_budget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">budget</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">display</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stable_pretraining/utils/flops/#flop_budget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stable_pretraining.utils.flops.flop_budget" title="Link to this definition">#</a></dt>
+<dd><p>Context manager that counts FLOPs and raises when budget is exceeded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>budget</strong> – Maximum number of FLOPs allowed</p></li>
+<li><p><strong>display</strong> – Whether to print FLOP breakdown on exit</p></li>
+</ul>
+</dd>
+<dt class="field-even">Yields<span class="colon">:</span></dt>
+<dd class="field-even"><p>Counter object with .total_flops property</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<dl class="simple">
+<dt>try:</dt><dd><dl class="simple">
+<dt>with flop_budget(1e9) as counter:</dt><dd><dl class="simple">
+<dt>for i in range(1000):</dt><dd><p>out = model(x)
+print(f”FLOPs so far: {counter.total_flops:,}”)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>except FLOPBudgetExceeded as e:</dt><dd><p>print(f”Stopped at {e.current:,} FLOPs”)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-stable_pretraining.utils.gdrive_utils">
 <span id="stable-pretraining-utils-gdrive-utils-module"></span><h2>stable_pretraining.utils.gdrive_utils module<a class="headerlink" href="#module-stable_pretraining.utils.gdrive_utils" title="Link to this heading">#</a></h2>
 <p>Google Drive Background Uploader.</p>
@@ -1677,6 +1750,28 @@ If return_summary is True: Summary DataFrame</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Tuple of (data DataFrame, config dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-stable_pretraining.utils.mae_loss">
+<span id="stable-pretraining-utils-mae-loss-module"></span><h2>stable_pretraining.utils.mae_loss module<a class="headerlink" href="#module-stable_pretraining.utils.mae_loss" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="stable_pretraining.utils.mae_loss.mae_loss">
+<span class="sig-prename descclassname"><span class="pre">stable_pretraining.utils.mae_loss.</span></span><span class="sig-name descname"><span class="pre">mae_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imgs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stable_pretraining/utils/mae_loss/#mae_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stable_pretraining.utils.mae_loss.mae_loss" title="Link to this definition">#</a></dt>
+<dd><p>Compute MAE reconstruction loss with per-patch normalization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pred</strong> – Decoder predictions, shape (N, T, patch_size² × C)</p></li>
+<li><p><strong>imgs</strong> – Original images, shape (N, C, H, W)</p></li>
+<li><p><strong>mask</strong> – Binary mask, shape (N, T), where 1 = masked (compute loss), 0 = visible (ignore)</p></li>
+<li><p><strong>patch_size</strong> – Size of each patch (default: 16)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Scalar loss value</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2182,6 +2277,47 @@ Default: ‘data’</p></li>
 <p>_optimize_dataframe: For details on DataFrame optimization
 _get_trials: For the complete list of format/compression combinations
 load_best_compressed: Smart loader that auto-detects format</p>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-stable_pretraining.utils.stats">
+<span id="stable-pretraining-utils-stats-module"></span><h2>stable_pretraining.utils.stats module<a class="headerlink" href="#module-stable_pretraining.utils.stats" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="stable_pretraining.utils.stats.mean_std">
+<span class="sig-prename descclassname"><span class="pre">stable_pretraining.utils.stats.</span></span><span class="sig-name descname"><span class="pre">mean_std</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.9)"><span class="pre">Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unbiased</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.9)"><span class="pre">Tensor</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.9)"><span class="pre">Tensor</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/stable_pretraining/utils/stats/#mean_std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stable_pretraining.utils.stats.mean_std" title="Link to this definition">#</a></dt>
+<dd><p>Compute mean and std across all DDP ranks with gradient support.</p>
+<p>Uses a single fused all_reduce for efficiency. Gradients flow back
+through the collective operation via torch.distributed.nn.functional.</p>
+<p>Note: Uses E[X²] - E[X]² formula which is efficient but may have
+numerical precision issues for very large values. For most deep
+learning applications this is fine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Input tensor of shape (…, N, …) where N is the size of
+dimension <cite>dim</cite> that will be reduced.</p></li>
+<li><p><strong>dim</strong> – Dimension to reduce (typically 0 for batch dimension).</p></li>
+<li><p><strong>keepdim</strong> – If True, retains the reduced dimension with size 1.</p></li>
+<li><p><strong>unbiased</strong> – If True, use Bessel’s correction (divide by N-1).
+If False, divide by N.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Global mean across all ranks. Shape depends on <cite>keepdim</cite>.
+std: Global std across all ranks. Shape depends on <cite>keepdim</cite>.
+B_global: Total number of samples across all ranks.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>mean</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># On each DDP rank with local batch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>  <span class="c1"># (B_local, D)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">B_global</span> <span class="o">=</span> <span class="n">ddp_mean_std_fused</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># mean, std have shape (D,), B_global = B_local * world_size</span>
+</pre></div>
 </div>
 </dd></dl>
 
@@ -3141,6 +3277,63 @@ then broadcasts to all other ranks.</p></li>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="stable_pretraining.utils.mae_loss">
+<span class="sig-prename descclassname"><span class="pre">stable_pretraining.utils.</span></span><span class="sig-name descname"><span class="pre">mae_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imgs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stable_pretraining/utils/mae_loss/#mae_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stable_pretraining.utils.mae_loss" title="Link to this definition">#</a></dt>
+<dd><p>Compute MAE reconstruction loss with per-patch normalization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pred</strong> – Decoder predictions, shape (N, T, patch_size² × C)</p></li>
+<li><p><strong>imgs</strong> – Original images, shape (N, C, H, W)</p></li>
+<li><p><strong>mask</strong> – Binary mask, shape (N, T), where 1 = masked (compute loss), 0 = visible (ignore)</p></li>
+<li><p><strong>patch_size</strong> – Size of each patch (default: 16)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Scalar loss value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stable_pretraining.utils.mean_std">
+<span class="sig-prename descclassname"><span class="pre">stable_pretraining.utils.</span></span><span class="sig-name descname"><span class="pre">mean_std</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.9)"><span class="pre">Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unbiased</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.9)"><span class="pre">Tensor</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.9)"><span class="pre">Tensor</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/stable_pretraining/utils/stats/#mean_std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stable_pretraining.utils.mean_std" title="Link to this definition">#</a></dt>
+<dd><p>Compute mean and std across all DDP ranks with gradient support.</p>
+<p>Uses a single fused all_reduce for efficiency. Gradients flow back
+through the collective operation via torch.distributed.nn.functional.</p>
+<p>Note: Uses E[X²] - E[X]² formula which is efficient but may have
+numerical precision issues for very large values. For most deep
+learning applications this is fine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Input tensor of shape (…, N, …) where N is the size of
+dimension <cite>dim</cite> that will be reduced.</p></li>
+<li><p><strong>dim</strong> – Dimension to reduce (typically 0 for batch dimension).</p></li>
+<li><p><strong>keepdim</strong> – If True, retains the reduced dimension with size 1.</p></li>
+<li><p><strong>unbiased</strong> – If True, use Bessel’s correction (divide by N-1).
+If False, divide by N.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Global mean across all ranks. Shape depends on <cite>keepdim</cite>.
+std: Global std across all ranks. Shape depends on <cite>keepdim</cite>.
+B_global: Total number of samples across all ranks.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>mean</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># On each DDP rank with local batch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>  <span class="c1"># (B_local, D)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">B_global</span> <span class="o">=</span> <span class="n">ddp_mean_std_fused</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># mean, std have shape (D,), B_global = B_local * world_size</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="stable_pretraining.utils.replace_module">
 <span class="sig-prename descclassname"><span class="pre">stable_pretraining.utils.</span></span><span class="sig-name descname"><span class="pre">replace_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacement_mapping</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stable_pretraining/utils/config/#replace_module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stable_pretraining.utils.replace_module" title="Link to this definition">#</a></dt>
 <dd><p>Replace modules in a model based on a mapping function.</p>
@@ -3319,6 +3512,15 @@ is not provided. Defaults to 10.</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.error_handling.with_hf_retry_ratelimit"><code class="docutils literal notranslate"><span class="pre">with_hf_retry_ratelimit()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-stable_pretraining.utils.flops">stable_pretraining.utils.flops module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.flops.BudgetedFlopCounterMode"><code class="docutils literal notranslate"><span class="pre">BudgetedFlopCounterMode</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.flops.BudgetedFlopCounterMode.total_flops"><code class="docutils literal notranslate"><span class="pre">BudgetedFlopCounterMode.total_flops</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.flops.FLOPBudgetExceeded"><code class="docutils literal notranslate"><span class="pre">FLOPBudgetExceeded</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.flops.flop_budget"><code class="docutils literal notranslate"><span class="pre">flop_budget()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-stable_pretraining.utils.gdrive_utils">stable_pretraining.utils.gdrive_utils module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.gdrive_utils.GDriveUploader"><code class="docutils literal notranslate"><span class="pre">GDriveUploader</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.gdrive_utils.GDriveUploader.get_folder_id"><code class="docutils literal notranslate"><span class="pre">GDriveUploader.get_folder_id()</span></code></a></li>
@@ -3372,6 +3574,10 @@ is not provided. Defaults to 10.</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.log_reader.read_wandb_run"><code class="docutils literal notranslate"><span class="pre">read_wandb_run()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-stable_pretraining.utils.mae_loss">stable_pretraining.utils.mae_loss module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.mae_loss.mae_loss"><code class="docutils literal notranslate"><span class="pre">mae_loss()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-stable_pretraining.utils.nn_modules">stable_pretraining.utils.nn_modules module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.nn_modules.BatchNorm1dNoBias"><code class="docutils literal notranslate"><span class="pre">BatchNorm1dNoBias</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.nn_modules.EMA"><code class="docutils literal notranslate"><span class="pre">EMA</span></code></a><ul class="nav section-nav flex-column">
@@ -3412,6 +3618,10 @@ is not provided. Defaults to 10.</p></li>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.read_csv_logger.load_best_compressed"><code class="docutils literal notranslate"><span class="pre">load_best_compressed()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.read_csv_logger.save_best_compressed"><code class="docutils literal notranslate"><span class="pre">save_best_compressed()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-stable_pretraining.utils.stats">stable_pretraining.utils.stats module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.stats.mean_std"><code class="docutils literal notranslate"><span class="pre">mean_std()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-stable_pretraining.utils.timm_to_hf_hub">stable_pretraining.utils.timm_to_hf_hub module</a><ul class="nav section-nav flex-column">
@@ -3493,6 +3703,8 @@ is not provided. Defaults to 10.</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.get_required_fn_parameters"><code class="docutils literal notranslate"><span class="pre">get_required_fn_parameters()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.is_dist_avail_and_initialized"><code class="docutils literal notranslate"><span class="pre">is_dist_avail_and_initialized()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.load_hparams_from_ckpt"><code class="docutils literal notranslate"><span class="pre">load_hparams_from_ckpt()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.mae_loss"><code class="docutils literal notranslate"><span class="pre">mae_loss()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.mean_std"><code class="docutils literal notranslate"><span class="pre">mean_std()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.replace_module"><code class="docutils literal notranslate"><span class="pre">replace_module()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.rgetattr"><code class="docutils literal notranslate"><span class="pre">rgetattr()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.utils.rsetattr"><code class="docutils literal notranslate"><span class="pre">rsetattr()</span></code></a></li>

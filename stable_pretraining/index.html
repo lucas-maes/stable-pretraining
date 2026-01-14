@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>stable_pretraining package &#8212; stable-pretraining 0.1.dev1+g1f4e9fd57 documentation</title>
+    <title>stable_pretraining package &#8212; stable-pretraining 0.1.dev1+g4557ee0f9 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=08283e98"></script>
+    <script src="../_static/documentation_options.js?v=7a2a2cdd"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -134,7 +134,7 @@
   
   
   
-    <p class="title logo__title">stable-pretraining 0.1.dev1+g1f4e9fd57 documentation</p>
+    <p class="title logo__title">stable-pretraining 0.1.dev1+g4557ee0f9 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -428,6 +428,7 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-stable_pretraining.module">stable_pretraining.module module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.module.Module"><code class="docutils literal notranslate"><span class="pre">Module</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.module.Module.after_manual_backward"><code class="docutils literal notranslate"><span class="pre">Module.after_manual_backward()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.module.Module.configure_optimizers"><code class="docutils literal notranslate"><span class="pre">Module.configure_optimizers()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.module.Module.forward"><code class="docutils literal notranslate"><span class="pre">Module.forward()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.module.Module.named_parameters"><code class="docutils literal notranslate"><span class="pre">Module.named_parameters()</span></code></a></li>
@@ -510,6 +511,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.Module"><code class="docutils literal notranslate"><span class="pre">Module</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.Module.after_manual_backward"><code class="docutils literal notranslate"><span class="pre">Module.after_manual_backward()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.Module.configure_optimizers"><code class="docutils literal notranslate"><span class="pre">Module.configure_optimizers()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.Module.forward"><code class="docutils literal notranslate"><span class="pre">Module.forward()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.Module.named_parameters"><code class="docutils literal notranslate"><span class="pre">Module.named_parameters()</span></code></a></li>
@@ -643,6 +645,12 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.backbone/#stable_pretraining.backbone.mlp.MLP"><code class="docutils literal notranslate"><span class="pre">MLP</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.backbone/#module-stable_pretraining.backbone.pos_embed">stable_pretraining.backbone.pos_embed module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.backbone/#stable_pretraining.backbone.pos_embed.get_1d_sincos_pos_embed"><code class="docutils literal notranslate"><span class="pre">get_1d_sincos_pos_embed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.backbone/#stable_pretraining.backbone.pos_embed.get_2d_sincos_pos_embed"><code class="docutils literal notranslate"><span class="pre">get_2d_sincos_pos_embed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.backbone/#stable_pretraining.backbone.pos_embed.get_sincos_pos_embed"><code class="docutils literal notranslate"><span class="pre">get_sincos_pos_embed()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.backbone/#module-stable_pretraining.backbone.probe">stable_pretraining.backbone.probe module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.backbone/#stable_pretraining.backbone.probe.AutoLinearClassifier"><code class="docutils literal notranslate"><span class="pre">AutoLinearClassifier</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../stable_pretraining.backbone/#stable_pretraining.backbone.probe.AutoLinearClassifier.norm"><code class="docutils literal notranslate"><span class="pre">AutoLinearClassifier.norm</span></code></a></li>
@@ -733,8 +741,8 @@ document.write(`
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.backbone/#module-stable_pretraining.backbone.vit">stable_pretraining.backbone.vit module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.backbone/#stable_pretraining.backbone.vit.PositionalEncoding2D"><code class="docutils literal notranslate"><span class="pre">PositionalEncoding2D</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../stable_pretraining.backbone/#stable_pretraining.backbone.vit.PositionalEncoding2D.forward"><code class="docutils literal notranslate"><span class="pre">PositionalEncoding2D.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.backbone/#stable_pretraining.backbone.vit.MAEDecoder"><code class="docutils literal notranslate"><span class="pre">MAEDecoder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../stable_pretraining.backbone/#stable_pretraining.backbone.vit.MAEDecoder.forward"><code class="docutils literal notranslate"><span class="pre">MAEDecoder.forward()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1436,6 +1444,15 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.error_handling.with_hf_retry_ratelimit"><code class="docutils literal notranslate"><span class="pre">with_hf_retry_ratelimit()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.utils/#module-stable_pretraining.utils.flops">stable_pretraining.utils.flops module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.flops.BudgetedFlopCounterMode"><code class="docutils literal notranslate"><span class="pre">BudgetedFlopCounterMode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.flops.BudgetedFlopCounterMode.total_flops"><code class="docutils literal notranslate"><span class="pre">BudgetedFlopCounterMode.total_flops</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.flops.FLOPBudgetExceeded"><code class="docutils literal notranslate"><span class="pre">FLOPBudgetExceeded</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.flops.flop_budget"><code class="docutils literal notranslate"><span class="pre">flop_budget()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.utils/#module-stable_pretraining.utils.gdrive_utils">stable_pretraining.utils.gdrive_utils module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.gdrive_utils.GDriveUploader"><code class="docutils literal notranslate"><span class="pre">GDriveUploader</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.gdrive_utils.GDriveUploader.get_folder_id"><code class="docutils literal notranslate"><span class="pre">GDriveUploader.get_folder_id()</span></code></a></li>
@@ -1489,6 +1506,10 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.log_reader.read_wandb_run"><code class="docutils literal notranslate"><span class="pre">read_wandb_run()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.utils/#module-stable_pretraining.utils.mae_loss">stable_pretraining.utils.mae_loss module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.mae_loss.mae_loss"><code class="docutils literal notranslate"><span class="pre">mae_loss()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.utils/#module-stable_pretraining.utils.nn_modules">stable_pretraining.utils.nn_modules module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.nn_modules.BatchNorm1dNoBias"><code class="docutils literal notranslate"><span class="pre">BatchNorm1dNoBias</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.nn_modules.EMA"><code class="docutils literal notranslate"><span class="pre">EMA</span></code></a><ul>
@@ -1529,6 +1550,10 @@ document.write(`
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.read_csv_logger.load_best_compressed"><code class="docutils literal notranslate"><span class="pre">load_best_compressed()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.read_csv_logger.save_best_compressed"><code class="docutils literal notranslate"><span class="pre">save_best_compressed()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.utils/#module-stable_pretraining.utils.stats">stable_pretraining.utils.stats module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.stats.mean_std"><code class="docutils literal notranslate"><span class="pre">mean_std()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.utils/#module-stable_pretraining.utils.timm_to_hf_hub">stable_pretraining.utils.timm_to_hf_hub module</a><ul>
@@ -1610,6 +1635,8 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.get_required_fn_parameters"><code class="docutils literal notranslate"><span class="pre">get_required_fn_parameters()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.is_dist_avail_and_initialized"><code class="docutils literal notranslate"><span class="pre">is_dist_avail_and_initialized()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.load_hparams_from_ckpt"><code class="docutils literal notranslate"><span class="pre">load_hparams_from_ckpt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.mae_loss"><code class="docutils literal notranslate"><span class="pre">mae_loss()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.mean_std"><code class="docutils literal notranslate"><span class="pre">mean_std()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.replace_module"><code class="docutils literal notranslate"><span class="pre">replace_module()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.rgetattr"><code class="docutils literal notranslate"><span class="pre">rgetattr()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../stable_pretraining.utils/#stable_pretraining.utils.rsetattr"><code class="docutils literal notranslate"><span class="pre">rsetattr()</span></code></a></li>
@@ -2192,6 +2219,11 @@ scheduler dict itself.</p>
 - Per-optimizer step frequency: each optimizer steps only when its frequency boundary is met (in addition to accumulation boundary).
 - Gradient clipping: uses Trainer’s <cite>gradient_clip_val</cite> and <cite>gradient_clip_algorithm</cite> before each step.
 - Returns the <cite>state</cite> dict from <cite>forward</cite> unchanged for logging/inspection.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stable_pretraining.module.Module.after_manual_backward">
+<span class="sig-name descname"><span class="pre">after_manual_backward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stable_pretraining/module/#Module.after_manual_backward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stable_pretraining.module.Module.after_manual_backward" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="stable_pretraining.module.Module.configure_optimizers">
 <span class="sig-name descname"><span class="pre">configure_optimizers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stable_pretraining/module/#Module.configure_optimizers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stable_pretraining.module.Module.configure_optimizers" title="Link to this definition">#</a></dt>
@@ -3159,6 +3191,11 @@ scheduler dict itself.</p>
 - Per-optimizer step frequency: each optimizer steps only when its frequency boundary is met (in addition to accumulation boundary).
 - Gradient clipping: uses Trainer’s <cite>gradient_clip_val</cite> and <cite>gradient_clip_algorithm</cite> before each step.
 - Returns the <cite>state</cite> dict from <cite>forward</cite> unchanged for logging/inspection.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stable_pretraining.Module.after_manual_backward">
+<span class="sig-name descname"><span class="pre">after_manual_backward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stable_pretraining/module/#Module.after_manual_backward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stable_pretraining.Module.after_manual_backward" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="stable_pretraining.Module.configure_optimizers">
 <span class="sig-name descname"><span class="pre">configure_optimizers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stable_pretraining/module/#Module.configure_optimizers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stable_pretraining.Module.configure_optimizers" title="Link to this definition">#</a></dt>
@@ -4186,6 +4223,7 @@ A warning is logged if using a custom DataModule without this method.</p>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-stable_pretraining.module">stable_pretraining.module module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.module.Module"><code class="docutils literal notranslate"><span class="pre">Module</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.module.Module.after_manual_backward"><code class="docutils literal notranslate"><span class="pre">Module.after_manual_backward()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.module.Module.configure_optimizers"><code class="docutils literal notranslate"><span class="pre">Module.configure_optimizers()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.module.Module.forward"><code class="docutils literal notranslate"><span class="pre">Module.forward()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.module.Module.named_parameters"><code class="docutils literal notranslate"><span class="pre">Module.named_parameters()</span></code></a></li>
@@ -4268,6 +4306,7 @@ A warning is logged if using a custom DataModule without this method.</p>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.Module"><code class="docutils literal notranslate"><span class="pre">Module</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.Module.after_manual_backward"><code class="docutils literal notranslate"><span class="pre">Module.after_manual_backward()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.Module.configure_optimizers"><code class="docutils literal notranslate"><span class="pre">Module.configure_optimizers()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.Module.forward"><code class="docutils literal notranslate"><span class="pre">Module.forward()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stable_pretraining.Module.named_parameters"><code class="docutils literal notranslate"><span class="pre">Module.named_parameters()</span></code></a></li>
