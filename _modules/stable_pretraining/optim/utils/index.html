@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>stable_pretraining.optim.utils &#8212; stable-pretraining 0.1.dev1+g739d196dc documentation</title>
+    <title>stable_pretraining.optim.utils &#8212; stable-pretraining 0.1.dev1+g399bd8437 documentation</title>
   
   
   
@@ -15,39 +15,43 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=ac5f65b1"></script>
+    <script src="../../../../_static/documentation_options.js?v=10695a17"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
-    <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/stable_pretraining/optim/utils';</script>
     <link rel="index" title="Index" href="../../../../genindex/" />
     <link rel="search" title="Search" href="../../../../search/" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -63,19 +67,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../../search/"
       method="get">
@@ -83,7 +76,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -91,8 +83,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -110,7 +102,8 @@
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -135,20 +128,16 @@
   
   
   
-    <p class="title logo__title">stable-pretraining 0.1.dev1+g739d196dc documentation</p>
+    <p class="title logo__title">stable-pretraining 0.1.dev1+g399bd8437 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
@@ -247,9 +236,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -284,7 +278,7 @@
 
 
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
   title="Fullscreen mode"
   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
@@ -298,24 +292,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 
 </div></div>
       
@@ -346,13 +332,107 @@ document.write(`
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">hydra.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">instantiate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span> <span class="k">as</span> <span class="n">logging</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">omegaconf</span><span class="w"> </span><span class="kn">import</span> <span class="n">DictConfig</span><span class="p">,</span> <span class="n">OmegaConf</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">..</span><span class="w"> </span><span class="kn">import</span> <span class="n">optim</span> <span class="k">as</span> <span class="n">ssl_optim</span>
+
+
+<div class="viewcode-block" id="is_bias_or_norm_param">
+<a class="viewcode-back" href="../../../../stable_pretraining.optim/#stable_pretraining.optim.utils.is_bias_or_norm_param">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_bias_or_norm_param</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">param</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if a parameter is a bias or belongs to a normalization layer.</span>
+
+<span class="sd">    Parameters are considered bias/norm if:</span>
+<span class="sd">    - The parameter name ends with &quot;.bias&quot;</span>
+<span class="sd">    - The parameter name contains &quot;norm&quot; (e.g., LayerNorm, BatchNorm, GroupNorm)</span>
+<span class="sd">    - The parameter is 1D (biases are typically 1D tensors)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name: Full parameter name (e.g., &quot;encoder.layer1.bn.weight&quot;)</span>
+<span class="sd">        param: The parameter tensor</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if the parameter should be excluded from weight decay</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check for bias parameters</span>
+    <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.bias&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;bias&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="c1"># Check for normalization layer parameters</span>
+    <span class="c1"># Matches: LayerNorm, BatchNorm, GroupNorm, InstanceNorm, RMSNorm, etc.</span>
+    <span class="n">name_lower</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">if</span> <span class="s2">&quot;norm&quot;</span> <span class="ow">in</span> <span class="n">name_lower</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="c1"># 1D parameters are typically biases (though this is a heuristic)</span>
+    <span class="c1"># Skip this check if the name doesn&#39;t suggest it&#39;s a bias</span>
+    <span class="c1"># This catches cases like &quot;bn1.weight&quot; which are norm layer scales</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+
+<div class="viewcode-block" id="split_params_for_weight_decay">
+<a class="viewcode-back" href="../../../../stable_pretraining.optim/#stable_pretraining.optim.utils.split_params_for_weight_decay">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">split_params_for_weight_decay</span><span class="p">(</span>
+    <span class="n">named_params</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">]],</span>
+    <span class="n">weight_decay</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Split parameters into groups with and without weight decay.</span>
+
+<span class="sd">    Creates two parameter groups:</span>
+<span class="sd">    - Regular parameters: use the specified weight_decay</span>
+<span class="sd">    - Bias/norm parameters: use weight_decay=0</span>
+
+<span class="sd">    This is a common practice in deep learning that:</span>
+<span class="sd">    - Prevents biases from being regularized (they have different roles than weights)</span>
+<span class="sd">    - Prevents normalization parameters from being regularized (they control scale/shift)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        named_params: Iterable of (name, parameter) tuples from model.named_parameters()</span>
+<span class="sd">        weight_decay: Weight decay value for regular parameters</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of parameter group dicts suitable for optimizer initialization:</span>
+<span class="sd">        [{&quot;params&quot;: regular_params, &quot;weight_decay&quot;: weight_decay},</span>
+<span class="sd">         {&quot;params&quot;: bias_norm_params, &quot;weight_decay&quot;: 0.0}]</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; named_params = model.named_parameters()</span>
+<span class="sd">        &gt;&gt;&gt; param_groups = split_params_for_weight_decay(</span>
+<span class="sd">        ...     named_params, weight_decay=0.01</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt; optimizer = torch.optim.AdamW(param_groups, lr=1e-3)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">regular_params</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">bias_norm_params</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">named_params</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">param</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="n">is_bias_or_norm_param</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
+            <span class="n">bias_norm_params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">regular_params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+
+    <span class="n">param_groups</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">regular_params</span><span class="p">:</span>
+        <span class="n">param_groups</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">regular_params</span><span class="p">,</span> <span class="s2">&quot;weight_decay&quot;</span><span class="p">:</span> <span class="n">weight_decay</span><span class="p">})</span>
+    <span class="k">if</span> <span class="n">bias_norm_params</span><span class="p">:</span>
+        <span class="n">param_groups</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">bias_norm_params</span><span class="p">,</span> <span class="s2">&quot;weight_decay&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">})</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Parameter split: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">regular_params</span><span class="p">)</span><span class="si">}</span><span class="s2"> regular params (wd=</span><span class="si">{</span><span class="n">weight_decay</span><span class="si">}</span><span class="s2">), &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">bias_norm_params</span><span class="p">)</span><span class="si">}</span><span class="s2"> bias/norm params (wd=0)&quot;</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">param_groups</span></div>
+
 
 
 <div class="viewcode-block" id="create_optimizer">
@@ -360,6 +440,7 @@ document.write(`
 <span class="k">def</span><span class="w"> </span><span class="nf">create_optimizer</span><span class="p">(</span>
     <span class="n">params</span><span class="p">,</span>
     <span class="n">optimizer_config</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">partial</span><span class="p">,</span> <span class="nb">type</span><span class="p">],</span>
+    <span class="n">named_params</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Optimizer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create an optimizer from flexible configuration.</span>
 
@@ -367,12 +448,15 @@ document.write(`
 <span class="sd">    used by both Module and OnlineProbe for consistency.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        params: Parameters to optimize (e.g., model.parameters())</span>
+<span class="sd">        params: Parameters to optimize (e.g., model.parameters()). Used unless</span>
+<span class="sd">            exclude_bias_norm is True and named_params is provided.</span>
 <span class="sd">        optimizer_config: Can be:</span>
 <span class="sd">            - str: optimizer name from torch.optim or stable_pretraining.optim (e.g., &quot;AdamW&quot;, &quot;LARS&quot;)</span>
-<span class="sd">            - dict: {&quot;type&quot;: &quot;AdamW&quot;, &quot;lr&quot;: 1e-3, ...}</span>
+<span class="sd">            - dict: {&quot;type&quot;: &quot;AdamW&quot;, &quot;lr&quot;: 1e-3, &quot;exclude_bias_norm&quot;: True, ...}</span>
 <span class="sd">            - partial: pre-configured optimizer factory</span>
 <span class="sd">            - class: optimizer class (e.g., torch.optim.AdamW)</span>
+<span class="sd">        named_params: Optional iterable of (name, parameter) tuples. Required when</span>
+<span class="sd">            exclude_bias_norm=True to identify bias and normalization parameters.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Configured optimizer instance</span>
@@ -384,6 +468,18 @@ document.write(`
 <span class="sd">        &gt;&gt;&gt; # Dict with parameters</span>
 <span class="sd">        &gt;&gt;&gt; opt = create_optimizer(</span>
 <span class="sd">        ...     model.parameters(), {&quot;type&quot;: &quot;SGD&quot;, &quot;lr&quot;: 0.1, &quot;momentum&quot;: 0.9}</span>
+<span class="sd">        ... )</span>
+
+<span class="sd">        &gt;&gt;&gt; # With exclude_bias_norm - excludes bias/norm params from weight decay</span>
+<span class="sd">        &gt;&gt;&gt; opt = create_optimizer(</span>
+<span class="sd">        ...     model.parameters(),</span>
+<span class="sd">        ...     {</span>
+<span class="sd">        ...         &quot;type&quot;: &quot;AdamW&quot;,</span>
+<span class="sd">        ...         &quot;lr&quot;: 1e-3,</span>
+<span class="sd">        ...         &quot;weight_decay&quot;: 0.01,</span>
+<span class="sd">        ...         &quot;exclude_bias_norm&quot;: True,</span>
+<span class="sd">        ...     },</span>
+<span class="sd">        ...     named_params=model.named_parameters(),</span>
 <span class="sd">        ... )</span>
 
 <span class="sd">        &gt;&gt;&gt; # Using partial</span>
@@ -415,9 +511,11 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="n">config_copy</span> <span class="o">=</span> <span class="n">optimizer_config</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">opt_type</span> <span class="o">=</span> <span class="n">config_copy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;AdamW&quot;</span><span class="p">)</span>
+        <span class="n">exclude_bias_norm</span> <span class="o">=</span> <span class="n">config_copy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;exclude_bias_norm&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="n">config_copy</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">opt_type</span> <span class="o">=</span> <span class="n">optimizer_config</span>
+        <span class="n">exclude_bias_norm</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="c1"># resolve class</span>
@@ -437,6 +535,29 @@ document.write(`
             <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">opt_class</span> <span class="o">=</span> <span class="n">opt_type</span>
+
+    <span class="c1"># Handle exclude_bias_norm: split params into groups with/without weight decay</span>
+    <span class="k">if</span> <span class="n">exclude_bias_norm</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">named_params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;exclude_bias_norm=True requires named_params to be provided. &quot;</span>
+                <span class="s2">&quot;Pass named_params=model.named_parameters() to create_optimizer.&quot;</span>
+            <span class="p">)</span>
+        <span class="n">weight_decay</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;weight_decay&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="c1"># Convert named_params to list to avoid consuming the iterator</span>
+        <span class="n">named_params_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">named_params</span><span class="p">)</span>
+        <span class="n">param_groups</span> <span class="o">=</span> <span class="n">split_params_for_weight_decay</span><span class="p">(</span><span class="n">named_params_list</span><span class="p">,</span> <span class="n">weight_decay</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">param_groups</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;No parameters to optimize after splitting for weight decay&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Creating </span><span class="si">{</span><span class="n">opt_class</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> with exclude_bias_norm=True: &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">])</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">param_groups</span><span class="p">)</span><span class="si">}</span><span class="s2"> params in </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">param_groups</span><span class="p">)</span><span class="si">}</span><span class="s2"> groups&quot;</span>
+        <span class="p">)</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">param_groups</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">opt_class</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -514,8 +635,8 @@ By stable-pretraining team
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>
