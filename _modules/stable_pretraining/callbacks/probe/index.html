@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>stable_pretraining.callbacks.probe &#8212; stable-pretraining 0.1.dev1+g399bd8437 documentation</title>
+    <title>stable_pretraining.callbacks.probe &#8212; stable-pretraining 0.1.dev1+gfec0d8cf3 documentation</title>
   
   
   
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=10695a17"></script>
+    <script src="../../../../_static/documentation_options.js?v=c1d29c9d"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
@@ -128,7 +128,7 @@
   
   
   
-    <p class="title logo__title">stable-pretraining 0.1.dev1+g399bd8437 documentation</p>
+    <p class="title logo__title">stable-pretraining 0.1.dev1+gfec0d8cf3 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -158,7 +158,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/gen_modules/stable_pretraining.backbone.set_embedding_dim/">set_embedding_dim</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/gen_modules/stable_pretraining.backbone.TeacherStudentWrapper/">TeacherStudentWrapper</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/gen_modules/stable_pretraining.backbone.EvalOnly/">EvalOnly</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../api/gen_modules/stable_pretraining.backbone.mae/">mae</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../api/data/">stable_pretraining.data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -338,7 +337,7 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">types</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">..utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_data_from_batch_or_outputs</span><span class="p">,</span> <span class="n">detach_tensors</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">TrainableCallback</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">TrainableCallback</span><span class="p">,</span> <span class="n">log_header</span>
 
 
 <div class="viewcode-block" id="OnlineProbe">
@@ -410,6 +409,7 @@
         <span class="n">gradient_clip_val</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">gradient_clip_algorithm</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;norm&quot;</span><span class="p">,</span>
         <span class="n">metrics</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">torchmetrics</span><span class="o">.</span><span class="n">Metric</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># Initialize base class</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input</span> <span class="o">=</span> <span class="nb">input</span>
@@ -417,6 +417,7 @@
         <span class="k">if</span> <span class="n">loss</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Not loss given to </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">, will use output of `probe`&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
 
         <span class="c1"># Store probe configuration for later initialization</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_probe_config</span> <span class="o">=</span> <span class="n">probe</span>
@@ -432,13 +433,14 @@
             <span class="n">gradient_clip_algorithm</span><span class="o">=</span><span class="n">gradient_clip_algorithm</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initialized </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - Input: </span><span class="si">{</span><span class="nb">input</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - Target: </span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - Accumulate grad batches: </span><span class="si">{</span><span class="n">accumulate_grad_batches</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">log_header</span><span class="p">(</span><span class="s2">&quot;OnlineProbe&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  name: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  input: </span><span class="si">{</span><span class="nb">input</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  target: </span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  accumulate_grad_batches: </span><span class="si">{</span><span class="n">accumulate_grad_batches</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="c1"># Setup metrics</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span> <span class="o">=</span> <span class="n">metrics</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: We are wrapping up your `forward`!&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;  wrapping forward&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wrap_forward</span><span class="p">(</span><span class="n">pl_module</span><span class="o">=</span><span class="n">module</span><span class="p">)</span>
 
 <div class="viewcode-block" id="OnlineProbe.configure_model">
@@ -490,27 +492,33 @@
             <span class="k">assert</span> <span class="n">prediction_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">batch</span>
             <span class="n">outputs</span><span class="p">[</span><span class="n">prediction_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">preds</span>
 
-            <span class="n">logs</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">scalar_logs</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">metric_logs</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">if</span> <span class="n">stage</span> <span class="o">==</span> <span class="s2">&quot;fit&quot;</span><span class="p">:</span>
                 <span class="n">loss</span> <span class="o">=</span> <span class="n">callback</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-                <span class="k">assert</span> <span class="sa">f</span><span class="s2">&quot;train/</span><span class="si">{</span><span class="n">callback</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_loss&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">logs</span>
+                <span class="k">assert</span> <span class="sa">f</span><span class="s2">&quot;train/</span><span class="si">{</span><span class="n">callback</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_loss&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">scalar_logs</span>
                 <span class="k">if</span> <span class="s2">&quot;loss&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">:</span>
                     <span class="n">outputs</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="n">outputs</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">loss</span>
-                <span class="n">logs</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;train/</span><span class="si">{</span><span class="n">callback</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_loss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+                <span class="n">scalar_logs</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;train/</span><span class="si">{</span><span class="n">callback</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_loss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 
                 <span class="n">my_metrics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks_metrics</span><span class="p">[</span><span class="n">callback</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;_train&quot;</span><span class="p">]</span>
                 <span class="k">for</span> <span class="n">metric_name</span><span class="p">,</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">my_metrics</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                     <span class="n">metric</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-                    <span class="k">assert</span> <span class="sa">f</span><span class="s2">&quot;train/</span><span class="si">{</span><span class="n">callback</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s2">&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">logs</span>
-                    <span class="n">logs</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;train/</span><span class="si">{</span><span class="n">callback</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metric</span>
+                    <span class="k">assert</span> <span class="sa">f</span><span class="s2">&quot;train/</span><span class="si">{</span><span class="n">callback</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s2">&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">metric_logs</span>
+                    <span class="n">metric_logs</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;train/</span><span class="si">{</span><span class="n">callback</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metric</span>
             <span class="k">elif</span> <span class="n">stage</span> <span class="o">==</span> <span class="s2">&quot;validate&quot;</span><span class="p">:</span>
                 <span class="n">my_metrics</span> <span class="o">=</span> <span class="n">pl_module</span><span class="o">.</span><span class="n">callbacks_metrics</span><span class="p">[</span><span class="n">callback</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;_val&quot;</span><span class="p">]</span>
                 <span class="k">for</span> <span class="n">metric_name</span><span class="p">,</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">my_metrics</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                     <span class="n">metric</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-                    <span class="n">logs</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;eval/</span><span class="si">{</span><span class="n">callback</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metric</span>
+                    <span class="n">metric_logs</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;eval/</span><span class="si">{</span><span class="n">callback</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metric</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">log_dict</span><span class="p">(</span><span class="n">logs</span><span class="p">,</span> <span class="n">on_step</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">on_epoch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sync_dist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1"># Raw scalars (loss): sync across GPUs</span>
+            <span class="k">if</span> <span class="n">scalar_logs</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log_dict</span><span class="p">(</span><span class="n">scalar_logs</span><span class="p">,</span> <span class="n">on_step</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">on_epoch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sync_dist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1"># torchmetrics: handle their own distributed sync, do NOT use sync_dist</span>
+            <span class="k">if</span> <span class="n">metric_logs</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log_dict</span><span class="p">(</span><span class="n">metric_logs</span><span class="p">,</span> <span class="n">on_step</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">on_epoch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sync_dist</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">outputs</span>
 
         <span class="c1"># Bind the new method to the instance</span>

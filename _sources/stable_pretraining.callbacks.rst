@@ -28,14 +28,6 @@ stable\_pretraining.callbacks.clip\_zero\_shot module
    :show-inheritance:
    :undoc-members:
 
-stable\_pretraining.callbacks.cpu\_offload module
--------------------------------------------------
-
-.. automodule:: stable_pretraining.callbacks.cpu_offload
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 stable\_pretraining.callbacks.earlystop module
 ----------------------------------------------
 
@@ -64,6 +56,14 @@ stable\_pretraining.callbacks.factories module
 ----------------------------------------------
 
 .. automodule:: stable_pretraining.callbacks.factories
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+stable\_pretraining.callbacks.hf\_models module
+-----------------------------------------------
+
+.. automodule:: stable_pretraining.callbacks.hf_models
    :members:
    :show-inheritance:
    :undoc-members:
