@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Manager &#8212; stable-pretraining 0.1.dev1+gfec0d8cf3 documentation</title>
+    <title>Manager &#8212; stable-pretraining 0.1.dev1+g4d234ce88 documentation</title>
   
   
   
@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=fd6457a4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -43,9 +43,10 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=c1d29c9d"></script>
+    <script src="../../../_static/documentation_options.js?v=ca3cbe1c"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/sg-tags.js?v=d80f6fa4"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/gen_modules/stable_pretraining.manager.Manager';</script>
     <link rel="index" title="Index" href="../../../genindex/" />
@@ -129,7 +130,7 @@
   
   
   
-    <p class="title logo__title">stable-pretraining 0.1.dev1+gfec0d8cf3 documentation</p>
+    <p class="title logo__title">stable-pretraining 0.1.dev1+g4d234ce88 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -147,6 +148,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../releases/">Releases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../contributing/">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../bibliography/">Bibliography</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../cache_dir/">Cache directory &amp; run layout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli/">CLI reference</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current nav bd-sidenav">
@@ -226,6 +232,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.optim.LinearWarmupCosineAnnealing/">LinearWarmupCosineAnnealing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.optim.LinearWarmupCyclicAnnealing/">LinearWarmupCyclicAnnealing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.optim.LinearWarmupThreeStepsAnnealing/">LinearWarmupThreeStepsAnnealing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../registry/">stable_pretraining.registry</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.registry.RegistryLogger/">RegistryLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.registry.Registry/">Registry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.registry.RunRecord/">RunRecord</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.registry.open_registry/">open_registry</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../web/">stable_pretraining.web</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.web.serve/">serve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.web.scan.RunScanner/">RunScanner</a></li>
 </ul>
 </details></li>
 </ul>
@@ -402,9 +420,26 @@
 <li><p><strong>module</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>, </em><em>DictConfig</em><em>, </em><em>pl.LightningModule</em><em>]</em>) – Lightning module configuration or instance.</p></li>
 <li><p><strong>data</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>, </em><em>DictConfig</em><em>, </em><em>pl.LightningDataModule</em><em>]</em>) – Data module configuration or instance.</p></li>
 <li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Random seed for reproducibility. Defaults to None.</p></li>
-<li><p><strong>ckpt_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Path to checkpoint for resuming training. Defaults to “last”.</p></li>
-<li><p><strong>resume_weights_only</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> | </em><em>None</em><em>, </em><em>optional</em>) – Forwarded to <code class="docutils literal notranslate"><span class="pre">Trainer.fit(weights_only=...)</span></code>
-when supported by the installed Lightning version. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>ckpt_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – <strong>Absolute</strong> path to a checkpoint to load
+from at the very start of a <em>fresh</em> run. Loaded once at step 0;
+after that the run lives in its own freshly-created <code class="docutils literal notranslate"><span class="pre">run_dir</span></code>
+and produces its own <code class="docutils literal notranslate"><span class="pre">last.ckpt</span></code>. <strong>Ignored</strong> on SLURM requeue
+— see below. Must be absolute and must exist on disk; otherwise
+<code class="docutils literal notranslate"><span class="pre">Manager</span></code> raises before training. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code> (train
+from scratch / pretrained backbone).</p></li>
+<li><p><strong>weights_only</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – <p>Controls how <code class="docutils literal notranslate"><span class="pre">ckpt_path</span></code> is loaded
+on a fresh run. Forwarded to <code class="docutils literal notranslate"><span class="pre">Trainer.fit(weights_only=...)</span></code>
+when supported by the installed Lightning version. <code class="docutils literal notranslate"><span class="pre">True</span></code>
+(the PyTorch ≥ 2.6 default for <code class="docutils literal notranslate"><span class="pre">torch.load</span></code>) loads only model
+weights — optimizer / scheduler / RNG state are discarded, which
+is the usual “transfer-learning init” semantics. Set <code class="docutils literal notranslate"><span class="pre">False</span></code>
+to fully restore everything from the checkpoint.</p>
+<p><strong>Has no effect on SLURM requeue</strong>: when <code class="docutils literal notranslate"><span class="pre">SLURM_RESTART_COUNT</span>
+<span class="pre">&gt;=</span> <span class="pre">1</span></code> the Manager always loads <code class="docutils literal notranslate"><span class="pre">&lt;run_dir&gt;/checkpoints/last.ckpt</span></code>
+with full state (<code class="docutils literal notranslate"><span class="pre">weights_only=False</span></code>) regardless of this flag,
+because the goal is to resume in-flight training exactly where
+preempt struck.</p>
+</p></li>
 <li><p><strong>compile</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Should we compile the given module. Defaults to False.</p></li>
 </ul>
 </dd>

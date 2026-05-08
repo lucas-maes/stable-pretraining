@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>stable_pretraining.data.synthetic_data &#8212; stable-pretraining 0.1.dev1+gfec0d8cf3 documentation</title>
+    <title>stable_pretraining.data.synthetic_data &#8212; stable-pretraining 0.1.dev1+g4d234ce88 documentation</title>
   
   
   
@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=fd6457a4" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -43,9 +43,10 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../_static/documentation_options.js?v=c1d29c9d"></script>
+    <script src="../../../_static/documentation_options.js?v=ca3cbe1c"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/sg-tags.js?v=d80f6fa4"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/gen_modules/stable_pretraining.data.synthetic_data';</script>
     <link rel="index" title="Index" href="../../../genindex/" />
@@ -129,7 +130,7 @@
   
   
   
-    <p class="title logo__title">stable-pretraining 0.1.dev1+gfec0d8cf3 documentation</p>
+    <p class="title logo__title">stable-pretraining 0.1.dev1+g4d234ce88 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -147,6 +148,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../releases/">Releases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../contributing/">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../bibliography/">Bibliography</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../cache_dir/">Cache directory &amp; run layout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli/">CLI reference</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="current nav bd-sidenav">
@@ -226,6 +232,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.optim.LinearWarmupCosineAnnealing/">LinearWarmupCosineAnnealing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.optim.LinearWarmupCyclicAnnealing/">LinearWarmupCyclicAnnealing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.optim.LinearWarmupThreeStepsAnnealing/">LinearWarmupThreeStepsAnnealing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../registry/">stable_pretraining.registry</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.registry.RegistryLogger/">RegistryLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.registry.Registry/">Registry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.registry.RunRecord/">RunRecord</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.registry.open_registry/">open_registry</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../web/">stable_pretraining.web</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.web.serve/">serve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../stable_pretraining.web.scan.RunScanner/">RunScanner</a></li>
 </ul>
 </details></li>
 </ul>
@@ -384,13 +402,13 @@ experimentation purposes.</p>
 <p class="rubric">Functions</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../../../stable_pretraining.data/#stable_pretraining.data.synthetic_data.generate_perlin_noise_2d" title="stable_pretraining.data.synthetic_data.generate_perlin_noise_2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_perlin_noise_2d</span></code></a>(shape, res[, ...])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_perlin_noise_2d</span></code>(shape, res[, ...])</p></td>
 <td><p>Generate 2D Perlin noise.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../../../stable_pretraining.data/#stable_pretraining.data.synthetic_data.perlin_noise_3d" title="stable_pretraining.data.synthetic_data.perlin_noise_3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">perlin_noise_3d</span></code></a>(x, y, z)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">perlin_noise_3d</span></code>(x, y, z)</p></td>
 <td><p>Generate 3D Perlin noise at given coordinates.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../../../stable_pretraining.data/#stable_pretraining.data.synthetic_data.swiss_roll" title="stable_pretraining.data.synthetic_data.swiss_roll"><code class="xref py py-obj docutils literal notranslate"><span class="pre">swiss_roll</span></code></a>(N[, margin, sampler_time, ...])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">swiss_roll</span></code>(N[, margin, sampler_time, ...])</p></td>
 <td><p>Generate Swiss Roll dataset points.</p></td>
 </tr>
 </tbody>
@@ -399,22 +417,22 @@ experimentation purposes.</p>
 <p class="rubric">Classes</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../../../stable_pretraining.data/#stable_pretraining.data.synthetic_data.Categorical" title="stable_pretraining.data.synthetic_data.Categorical"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Categorical</span></code></a>(values, probabilities)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../stable_pretraining.data.Categorical/#stable_pretraining.data.Categorical" title="stable_pretraining.data.synthetic_data.Categorical"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Categorical</span></code></a>(values, probabilities)</p></td>
 <td><p>Categorical distribution for sampling discrete values with given probabilities.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../../../stable_pretraining.data/#stable_pretraining.data.synthetic_data.ExponentialMixtureNoiseModel" title="stable_pretraining.data.synthetic_data.ExponentialMixtureNoiseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExponentialMixtureNoiseModel</span></code></a>(rates, prior[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../stable_pretraining.data.ExponentialMixtureNoiseModel/#stable_pretraining.data.ExponentialMixtureNoiseModel" title="stable_pretraining.data.synthetic_data.ExponentialMixtureNoiseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExponentialMixtureNoiseModel</span></code></a>(rates, prior[, ...])</p></td>
 <td><p>Exponential mixture noise model for data augmentation or sampling.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../../../stable_pretraining.data/#stable_pretraining.data.synthetic_data.ExponentialNormalNoiseModel" title="stable_pretraining.data.synthetic_data.ExponentialNormalNoiseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExponentialNormalNoiseModel</span></code></a>(rate, mean, std, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../stable_pretraining.data.ExponentialNormalNoiseModel/#stable_pretraining.data.ExponentialNormalNoiseModel" title="stable_pretraining.data.synthetic_data.ExponentialNormalNoiseModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExponentialNormalNoiseModel</span></code></a>(rate, mean, std, ...)</p></td>
 <td><p>Exponential-normal noise model combining exponential and normal distributions.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../../../stable_pretraining.data/#stable_pretraining.data.synthetic_data.GMM" title="stable_pretraining.data.synthetic_data.GMM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMM</span></code></a>([num_components, num_samples, dim])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../stable_pretraining.data.GMM/#stable_pretraining.data.GMM" title="stable_pretraining.data.synthetic_data.GMM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMM</span></code></a>([num_components, num_samples, dim])</p></td>
 <td><p>Gaussian Mixture Model dataset for synthetic data generation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../../../stable_pretraining.data/#stable_pretraining.data.synthetic_data.MinariEpisodeDataset" title="stable_pretraining.data.synthetic_data.MinariEpisodeDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MinariEpisodeDataset</span></code></a>(dataset)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../stable_pretraining.data.MinariEpisodeDataset/#stable_pretraining.data.MinariEpisodeDataset" title="stable_pretraining.data.synthetic_data.MinariEpisodeDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MinariEpisodeDataset</span></code></a>(dataset)</p></td>
 <td><p>Dataset for Minari reinforcement learning data with episode-based access.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../../../stable_pretraining.data/#stable_pretraining.data.synthetic_data.MinariStepsDataset" title="stable_pretraining.data.synthetic_data.MinariStepsDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MinariStepsDataset</span></code></a>(dataset[, num_steps, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../stable_pretraining.data.MinariStepsDataset/#stable_pretraining.data.MinariStepsDataset" title="stable_pretraining.data.synthetic_data.MinariStepsDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MinariStepsDataset</span></code></a>(dataset[, num_steps, ...])</p></td>
 <td><p>Dataset for Minari reinforcement learning data with step-based access.</p></td>
 </tr>
 </tbody>

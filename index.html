@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>stable-pretraining &#8212; stable-pretraining 0.1.dev1+gfec0d8cf3 documentation</title>
+    <title>stable-pretraining &#8212; stable-pretraining 0.1.dev1+g4d234ce88 documentation</title>
   
   
   
@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
-    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=fd6457a4" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -43,9 +43,10 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=c1d29c9d"></script>
+    <script src="_static/documentation_options.js?v=ca3cbe1c"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/sg-tags.js?v=d80f6fa4"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex/" />
@@ -130,7 +131,7 @@
   
   
   
-    <p class="title logo__title">stable-pretraining 0.1.dev1+gfec0d8cf3 documentation</p>
+    <p class="title logo__title">stable-pretraining 0.1.dev1+g4d234ce88 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -148,6 +149,11 @@
 <li class="toctree-l1"><a class="reference internal" href="releases/">Releases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing/">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bibliography/">Bibliography</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="cache_dir/">Cache directory &amp; run layout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli/">CLI reference</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="nav bd-sidenav">
@@ -227,6 +233,18 @@
 <li class="toctree-l2"><a class="reference internal" href="api/gen_modules/stable_pretraining.optim.LinearWarmupCosineAnnealing/">LinearWarmupCosineAnnealing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/gen_modules/stable_pretraining.optim.LinearWarmupCyclicAnnealing/">LinearWarmupCyclicAnnealing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/gen_modules/stable_pretraining.optim.LinearWarmupThreeStepsAnnealing/">LinearWarmupThreeStepsAnnealing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api/registry/">stable_pretraining.registry</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/gen_modules/stable_pretraining.registry.RegistryLogger/">RegistryLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/gen_modules/stable_pretraining.registry.Registry/">Registry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/gen_modules/stable_pretraining.registry.RunRecord/">RunRecord</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/gen_modules/stable_pretraining.registry.open_registry/">open_registry</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api/web/">stable_pretraining.web</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/gen_modules/stable_pretraining.web.serve/">serve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/gen_modules/stable_pretraining.web.scan.RunScanner/">RunScanner</a></li>
 </ul>
 </details></li>
 </ul>
@@ -379,18 +397,48 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-structure">Core Structure</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">1 - Data</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#module">2 - Module</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#callbacks">3 - Callbacks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#callbacks">3 - Callbacks</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-monitoring">Evaluation &amp; Monitoring</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#training-utilities">Training Utilities</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpointing-export">Checkpointing &amp; Export</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#system-logging">System &amp; Logging</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#intelligent-queue-system">Intelligent Queue System</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trainer">4 - Trainer</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-configuration">Global Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-directory-cache-dir">Output Directory (<code class="docutils literal notranslate"><span class="pre">cache_dir</span></code>)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enabling-cache-dir">Enabling <code class="docutils literal notranslate"><span class="pre">cache_dir</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-run-id-is-generated">How the run ID is generated</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ckpt-path-is-for-loading-only"><code class="docutils literal notranslate"><span class="pre">ckpt_path</span></code> is for loading only</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hydra-compatibility">Hydra compatibility</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-registry">Run Registry</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture">Architecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-gets-stored">What gets stored</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grouping-with-tags">Grouping with tags</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-runs">Querying runs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concurrency-and-slurm-requeue">Concurrency and SLURM requeue</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#liveness-detection">Liveness detection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cli">CLI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#disabling-the-registry">Disabling the registry</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#built-in-methods">Built-in Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backbones">Backbones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizers-schedulers">Optimizers &amp; Schedulers</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-example">Complete Example</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start-with-spt-cli">🚀 Quick Start with <code class="docutils literal notranslate"><span class="pre">spt</span></code> CLI</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start-with-spt-cli">Quick Start with <code class="docutils literal notranslate"><span class="pre">spt</span></code> CLI</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-training">Local Training</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm-cluster-training">SLURM Cluster Training</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ways-you-can-contribute">Ways You Can Contribute:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citation">Citation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributors">Contributors</a></li>
 </ul>
             </nav>
@@ -415,7 +463,7 @@
 <a class="reference external" href="https://opensource.org/licenses/MIT"><img alt="License" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
 <a class="reference external" href="https://wandb.ai/site"><img alt="WandB" src="https://raw.githubusercontent.com/wandb/assets/main/wandb-github-badge-gradient.svg" /></a></p>
 <p>AI is moving beyond labels. Today’s models learn through <strong>self-supervision</strong> and <strong>multimodal alignment</strong>, extracting knowledge from raw data to build general-purpose representations that work across tasks. These foundation models are then deployed at scale, often after finetuning, to solve tasks in zero or few shot.</p>
-<p><code class="docutils literal notranslate"><span class="pre">stable-pretraining</span></code> is a PyTorch framework built on top of Lightning for this new paradigm. What sets us apart is <strong>real-time visibility into training quality</strong> through extensive logging and monitoring. Our callback ecosystem (<code class="docutils literal notranslate"><span class="pre">OnlineProbe</span></code>, <code class="docutils literal notranslate"><span class="pre">OnlineKNN</span></code>, <code class="docutils literal notranslate"><span class="pre">RankMe</span></code>, and many more) provides insights into feature collapse, training dynamics, and downstream performance. Data flow as dictionaries through model components, metrics, and callbacks, making any intermediate value accessible and debuggable. With <code class="docutils literal notranslate"><span class="pre">stable-pretraining</span></code>: track everything, debug faster, iterate sooner.</p>
+<p><code class="docutils literal notranslate"><span class="pre">stable-pretraining</span></code> is a PyTorch framework built on top of Lightning for this new paradigm. What sets us apart is <strong>real-time visibility into training quality</strong> through extensive logging and monitoring. Our callback ecosystem (<code class="docutils literal notranslate"><span class="pre">OnlineProbe</span></code>, <code class="docutils literal notranslate"><span class="pre">OnlineKNN</span></code>, <code class="docutils literal notranslate"><span class="pre">RankMe</span></code>, and many more) provides insights into feature collapse, training dynamics, and downstream performance. Data flows as dictionaries through model components, metrics, and callbacks, making any intermediate value accessible and debuggable. With <code class="docutils literal notranslate"><span class="pre">stable-pretraining</span></code>: track everything, debug faster, iterate sooner.</p>
 <p>Join our Discord: <a class="reference external" href="https://discord.gg/adzpqWKM25">https://discord.gg/8M6hT39X</a></p>
 <section id="how">
 <h2>How?<a class="headerlink" href="#how" title="Link to this heading">#</a></h2>
@@ -431,7 +479,6 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/galil
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
 </div>
-<p>For advanced installation options, see <a class="reference internal" href="#installation"><span class="xref myst">Installation</span></a> below.</p>
 </section>
 <section id="core-structure">
 <h2>Core Structure<a class="headerlink" href="#core-structure" title="Link to this heading">#</a></h2>
@@ -518,13 +565,138 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <section id="callbacks">
 <h3>3 - Callbacks<a class="headerlink" href="#callbacks" title="Link to this heading">#</a></h3>
 <p>Monitor and evaluate your models in real-time during training. Callbacks are key ingredients of <code class="docutils literal notranslate"><span class="pre">stable-pretraining</span></code>, providing rich insights without interrupting your training flow.</p>
-<p>For example, OnlineProbe allows to jointly optimize a lightweight model (e.g. a single linear layer) on top of the current backbone model representations.</p>
+<section id="evaluation-monitoring">
+<h4>Evaluation &amp; Monitoring<a class="headerlink" href="#evaluation-monitoring" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Callback</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OnlineProbe</span></code></p></td>
+<td><p>Trains a lightweight linear probe on frozen representations to track downstream task accuracy in real-time. Maintains its own optimizer and training loop.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OnlineKNN</span></code></p></td>
+<td><p>Non-parametric k-nearest neighbors evaluator using a rolling queue of cached embeddings. Zero training cost.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">RankMe</span></code></p></td>
+<td><p>Tracks effective rank of feature representations via singular values. A rank drop signals dimensional collapse.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LiDAR</span></code></p></td>
+<td><p>Linear Discriminant Analysis Rank over surrogate classes of augmented views.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CLIPZeroShot</span></code></p></td>
+<td><p>Zero-shot classification for CLIP-style models. Compares image embeddings against text-encoded class names.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ImageRetrieval</span></code></p></td>
+<td><p>Image retrieval evaluator following the DINO protocol with query/gallery splits.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LatentViz</span></code></p></td>
+<td><p>Online 2D visualization of the latent space. Learns a neighborhood-preserving projection and periodically plots it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">EpochMilestones</span></code></p></td>
+<td><p>Early-stops training if a metric fails to reach a threshold by a given epoch.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="training-utilities">
+<h4>Training Utilities<a class="headerlink" href="#training-utilities" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Callback</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TeacherStudentCallback</span></code></p></td>
+<td><p>Auto-discovers <code class="docutils literal notranslate"><span class="pre">TeacherStudentWrapper</span></code> instances and performs EMA teacher updates at configurable frequency.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">WeightDecayUpdater</span></code></p></td>
+<td><p>Updates weight decay on a per-batch schedule (constant, linear, cosine, or exponential).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EmbeddingCache</span></code></p></td>
+<td><p>Hooks into named submodules to cache intermediate embeddings for downstream use.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="checkpointing-export">
+<h4>Checkpointing &amp; Export<a class="headerlink" href="#checkpointing-export" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Callback</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SklearnCheckpoint</span></code></p></td>
+<td><p>Saves and restores scikit-learn models (probes, classifiers) inside Lightning checkpoints.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">WandbCheckpoint</span></code></p></td>
+<td><p>Uploads checkpoints to Weights &amp; Biases as artifacts with run-resume support.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">StrictCheckpointCallback</span></code></p></td>
+<td><p>Controls strict/non-strict checkpoint loading with detailed mismatch reporting.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">HuggingFaceCheckpointCallback</span></code></p></td>
+<td><p>Exports HuggingFace-compatible checkpoints for any <code class="docutils literal notranslate"><span class="pre">PreTrainedModel</span></code> submodule (zero-knowledge reload).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="system-logging">
+<h4>System &amp; Logging<a class="headerlink" href="#system-logging" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Callback</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LoggingCallback</span></code></p></td>
+<td><p>Displays validation metrics in a color-coded formatted table after each epoch.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ModuleSummary</span></code></p></td>
+<td><p>Logs detailed parameter statistics (trainable, frozen, per-layer) at the start of training.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TrainerInfo</span></code></p></td>
+<td><p>Links trainer to DataModule and logs trainer configuration.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SLURMInfo</span></code></p></td>
+<td><p>Extracts and logs SLURM environment information (job ID, partition, resources).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">EnvironmentDumpCallback</span></code></p></td>
+<td><p>Dumps Python version, CUDA info, installed packages, git state, and env vars to <code class="docutils literal notranslate"><span class="pre">environment.json</span></code> for exact reproducibility.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LogUnusedParametersOnce</span></code></p></td>
+<td><p>Reports parameters that receive no gradient after the first backward pass. Useful for catching wiring bugs.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CleanUpCallback</span></code></p></td>
+<td><p>Removes selected training artifacts (SLURM logs, Hydra files, checkpoints, etc.) after successful training. Keeps everything on failure for debugging.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ModuleRegistryCallback</span></code></p></td>
+<td><p>Registers the module for global logging access. Enables <code class="docutils literal notranslate"><span class="pre">spt.log()</span></code> and <code class="docutils literal notranslate"><span class="pre">spt.log_dict()</span></code> from anywhere.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="intelligent-queue-system">
+<h4>Intelligent Queue System<a class="headerlink" href="#intelligent-queue-system" title="Link to this heading">#</a></h4>
+<p>Callbacks that need rolling feature stores (<code class="docutils literal notranslate"><span class="pre">OnlineKNN</span></code>, <code class="docutils literal notranslate"><span class="pre">RankMe</span></code>, <code class="docutils literal notranslate"><span class="pre">LiDAR</span></code>, <code class="docutils literal notranslate"><span class="pre">LatentViz</span></code>) share memory through an automatic queue management system. If two callbacks monitor the same key with different queue lengths, a single queue is allocated at the maximum length and shared, eliminating redundant computation.</p>
+<p><strong>Why callbacks matter:</strong> Get real-time feedback on representation quality, catch issues like collapse early, and track multiple metrics simultaneously. For detailed usage and practical considerations, see the <a class="reference external" href="https://github.com/rbalestr-lab/stable-pretraining/blob/main/stable_pretraining/callbacks/README.md">Callback guide</a>.</p>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Monitor SSL representations with a linear classifier</span>
 <span class="n">linear_probe</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">OnlineProbe</span><span class="p">(</span>
-    <span class="n">module</span><span class="p">,</span>  <span class="c1"># Pass the spt.Module instance</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;linear_probe&quot;</span><span class="p">,</span>  <span class="c1"># Useful for retrieving metrics and values in logging</span>
-    <span class="nb">input</span><span class="o">=</span><span class="s2">&quot;embedding&quot;</span><span class="p">,</span>  <span class="c1"># Which output from forward to monitor</span>
-    <span class="n">target</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span>      <span class="c1"># Ground truth from batch</span>
+    <span class="n">module</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;linear_probe&quot;</span><span class="p">,</span>
+    <span class="nb">input</span><span class="o">=</span><span class="s2">&quot;embedding&quot;</span><span class="p">,</span>
+    <span class="n">target</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span>
     <span class="n">probe</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
     <span class="n">loss_fn</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(),</span>
     <span class="n">metrics</span><span class="o">=</span><span class="p">{</span>
@@ -532,10 +704,8 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
         <span class="s2">&quot;top5&quot;</span><span class="p">:</span> <span class="n">torchmetrics</span><span class="o">.</span><span class="n">classification</span><span class="o">.</span><span class="n">MulticlassAccuracy</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
     <span class="p">},</span>
 <span class="p">)</span>
-</pre></div>
-</div>
-<p>OnlineKNN is a non-parametric probe that constructs predictions based on the k nearest neighbors in the representation space.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Track representation quality with KNN evaluation</span>
+
+<span class="c1"># Track representation quality with KNN evaluation</span>
 <span class="n">knn_probe</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">OnlineKNN</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;knn_probe&quot;</span><span class="p">,</span>
     <span class="nb">input</span><span class="o">=</span><span class="s2">&quot;embedding&quot;</span><span class="p">,</span>
@@ -545,8 +715,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Callbacks are powered by an intelligent queue management system that automatically shares memory between callbacks monitoring the same data thus eliminating redundant computations.</p>
-<p><strong>Why callbacks matter:</strong> Get real-time feedback on representation quality, catch issues like collapse early, and track multiple metrics simultaneously for deeper insights. For more details and an overview of useful callbacks, refer to the <a class="reference internal" href="#stable_pretraining/callbacks/README.md"><span class="xref myst">Callback guide</span></a>.</p>
+</section>
 </section>
 <section id="trainer">
 <h3>4 - Trainer<a class="headerlink" href="#trainer" title="Link to this heading">#</a></h3>
@@ -565,6 +734,415 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </div>
 <p>Once configured, the <code class="docutils literal notranslate"><span class="pre">Manager</span></code> connects all components and handles the training loop with precise logging and monitoring (optional).</p>
 </section>
+</section>
+<section id="global-configuration">
+<h2>Global Configuration<a class="headerlink" href="#global-configuration" title="Link to this heading">#</a></h2>
+<p>Instead of scattering options across environment variables, callback constructors, and factory functions, <code class="docutils literal notranslate"><span class="pre">stable-pretraining</span></code> provides a single entry-point to configure library-wide behavior:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">stable_pretraining</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">spt</span>
+
+<span class="n">spt</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="s2">&quot;WARNING&quot;</span><span class="p">,</span>                          <span class="c1"># Global log level (also controls callback verbosity)</span>
+    <span class="n">progress_bar</span><span class="o">=</span><span class="s2">&quot;rich&quot;</span><span class="p">,</span>                        <span class="c1"># &quot;auto&quot;, &quot;rich&quot;, &quot;simple&quot;, or &quot;none&quot;</span>
+    <span class="n">cleanup</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;checkpoints&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;slurm&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>  <span class="c1"># What CleanUpCallback removes</span>
+    <span class="n">log_rank</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span>                             <span class="c1"># Which distributed rank(s) may log (default: 0)</span>
+    <span class="n">default_callbacks</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;env_dump&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>       <span class="c1"># Toggle individual default callbacks on/off</span>
+<span class="p">)</span>
+
+<span class="c1"># Inspect the current configuration</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spt</span><span class="o">.</span><span class="n">get_config</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code> or <code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;INFO&quot;</span></code></p></td>
+<td><p>Loguru log level. Accepts <code class="docutils literal notranslate"><span class="pre">&quot;DEBUG&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;INFO&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;WARNING&quot;</span></code>, etc., or Python logging ints (<code class="docutils literal notranslate"><span class="pre">10</span></code>, <code class="docutils literal notranslate"><span class="pre">20</span></code>, <code class="docutils literal notranslate"><span class="pre">30</span></code>). Also controls the <code class="docutils literal notranslate"><span class="pre">verbose</span></code> flag on all callbacks when left at their default.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">progress_bar</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code></p></td>
+<td><p>Progress bar style. <code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code> picks <code class="docutils literal notranslate"><span class="pre">&quot;rich&quot;</span></code> for TTYs and <code class="docutils literal notranslate"><span class="pre">&quot;simple&quot;</span></code> for non-interactive environments. <code class="docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code> disables it.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cleanup</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+<td><p>keeps checkpoints &amp; logs</p></td>
+<td><p>Controls which artifact categories <code class="docutils literal notranslate"><span class="pre">CleanUpCallback</span></code> removes after training. Keys: <code class="docutils literal notranslate"><span class="pre">&quot;checkpoints&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;logs&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;hydra&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;slurm&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;env_dump&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;callback_artifacts&quot;</span></code>. Values are bools (<code class="docutils literal notranslate"><span class="pre">True</span></code> = keep, <code class="docutils literal notranslate"><span class="pre">False</span></code> = delete).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">log_rank</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;all&quot;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Which distributed rank(s) may produce log output.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">default_callbacks</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+<td><p>all enabled</p></td>
+<td><p>Toggle individual default callbacks: <code class="docutils literal notranslate"><span class="pre">&quot;progress_bar&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;registry&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;logging&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;env_dump&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;trainer_info&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;sklearn_checkpoint&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;wandb_checkpoint&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;module_summary&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;slurm_info&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;unused_params&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;hf_checkpoint&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">default_loggers</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+<td><p>all enabled</p></td>
+<td><p>Toggle default loggers: <code class="docutils literal notranslate"><span class="pre">&quot;registry&quot;</span></code> (SQLite run registry + per-step CSV logger, added as a pair).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cache_dir</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code> (or <code class="docutils literal notranslate"><span class="pre">SPT_CACHE_DIR</span></code> env var)</p></td>
+<td><p>Root directory for all training outputs. See <a class="reference internal" href="#output-directory-cache-dir">Output Directory</a> below.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">requeue_checkpoint</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+<td><p>Auto-add a <code class="docutils literal notranslate"><span class="pre">last.ckpt</span></code> checkpoint every epoch for SLURM requeue. Set to <code class="docutils literal notranslate"><span class="pre">False</span></code> to save time/disk when preemption is not a concern. Only applies when <code class="docutils literal notranslate"><span class="pre">cache_dir</span></code> is set.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Settings apply immediately and persist for the process lifetime. <code class="docutils literal notranslate"><span class="pre">spt.set()</span></code> can be called multiple times; only the settings you pass are updated.</p>
+</section>
+<section id="output-directory-cache-dir">
+<span id="id1"></span><h2>Output Directory (<code class="docutils literal notranslate"><span class="pre">cache_dir</span></code>)<a class="headerlink" href="#output-directory-cache-dir" title="Link to this heading">#</a></h2>
+<p>By default, Lightning and Hydra scatter training outputs (checkpoints, logs, wandb data) based on the current working directory or Hydra’s <code class="docutils literal notranslate"><span class="pre">run.dir</span></code>. This causes collisions when multiple sweep jobs start at the same time and resolve to the same path.</p>
+<p><code class="docutils literal notranslate"><span class="pre">stable-pretraining</span></code> solves this with a centralized <code class="docutils literal notranslate"><span class="pre">cache_dir</span></code>. When set, <strong>every run gets its own unique directory</strong> and all outputs are routed there automatically:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{cache_dir}/runs/{YYYYMMDD}/{HHMMSS}/{run_id}/
+├── checkpoints/last.ckpt
+├── wandb_resume.json
+├── run_meta.json
+├── environment.json
+└── ...
+</pre></div>
+</div>
+<section id="enabling-cache-dir">
+<h3>Enabling <code class="docutils literal notranslate"><span class="pre">cache_dir</span></code><a class="headerlink" href="#enabling-cache-dir" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">stable_pretraining</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">spt</span>
+
+<span class="c1"># Option 1: in Python</span>
+<span class="n">spt</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cache_dir</span><span class="o">=</span><span class="s2">&quot;~/.cache/stable_pretraining&quot;</span><span class="p">)</span>
+
+<span class="c1"># Option 2: via environment variable (e.g. in ~/.bashrc)</span>
+<span class="c1"># export SPT_CACHE_DIR=~/.cache/stable_pretraining</span>
+</pre></div>
+</div>
+<p>When <code class="docutils literal notranslate"><span class="pre">cache_dir</span></code> is set, the Manager:</p>
+<ol class="arabic simple">
+<li><p>Creates a unique run directory under <code class="docutils literal notranslate"><span class="pre">cache_dir/runs/</span></code>.</p></li>
+<li><p>Sets the Trainer’s <code class="docutils literal notranslate"><span class="pre">default_root_dir</span></code> to that directory (before instantiation).</p></li>
+<li><p>Redirects <strong>all</strong> <code class="docutils literal notranslate"><span class="pre">ModelCheckpoint</span></code> callbacks to <code class="docutils literal notranslate"><span class="pre">run_dir/checkpoints/</span></code> (preserving their filename, monitor, and other settings).</p></li>
+<li><p>Adds a requeue checkpoint (<code class="docutils literal notranslate"><span class="pre">last.ckpt</span></code>, saved every epoch) for seamless SLURM preemption recovery. You never need to add one yourself.</p></li>
+<li><p>Routes all callback outputs (environment dumps, latent visualizations, HuggingFace exports, etc.) there.</p></li>
+</ol>
+<p>If preemption is not a concern and you want to skip the requeue checkpoint overhead:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">spt</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cache_dir</span><span class="o">=</span><span class="s2">&quot;/scratch/runs&quot;</span><span class="p">,</span> <span class="n">requeue_checkpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When <code class="docutils literal notranslate"><span class="pre">cache_dir</span></code> is not set (<code class="docutils literal notranslate"><span class="pre">None</span></code>, the default), the library behaves exactly as before.</p>
+</section>
+<section id="how-the-run-id-is-generated">
+<h3>How the run ID is generated<a class="headerlink" href="#how-the-run-id-is-generated" title="Link to this heading">#</a></h3>
+<p>The run ID is chosen to be <strong>deterministic across all ranks of the same job</strong>, so multi-GPU training always agrees on a single directory:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Environment</p></th>
+<th class="head"><p>Run ID</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SLURM</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SLURM_JOB_ID</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">99999</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>SLURM array job</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SLURM_JOB_ID_SLURM_ARRAY_TASK_ID</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">99999_3</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>torchrun</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TORCHELASTIC_RUN_ID</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">abc123</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Local / other</p></td>
+<td><p>Random UUID (12 hex chars)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">a1b2c3d4e5f6</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="ckpt-path-is-for-loading-only">
+<h3><code class="docutils literal notranslate"><span class="pre">ckpt_path</span></code> is for loading only<a class="headerlink" href="#ckpt-path-is-for-loading-only" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ckpt_path</span></code> and <code class="docutils literal notranslate"><span class="pre">cache_dir</span></code> serve different purposes:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ckpt_path</span></code></strong> = where to <strong>load</strong> weights from (one-time, read-only).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">cache_dir</span></code></strong> = where to <strong>save</strong> everything going forward.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">manager</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">Manager</span><span class="p">(</span>
+    <span class="n">trainer</span><span class="o">=</span><span class="n">trainer_cfg</span><span class="p">,</span>
+    <span class="n">module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+    <span class="n">ckpt_path</span><span class="o">=</span><span class="s2">&quot;/old/run/pretrained.ckpt&quot;</span><span class="p">,</span>  <span class="c1"># Load from here once</span>
+<span class="p">)</span>
+<span class="c1"># New checkpoints, logs, wandb data → cache_dir/runs/.../</span>
+</pre></div>
+</div>
+<p>If you don’t pass <code class="docutils literal notranslate"><span class="pre">ckpt_path</span></code>, the system checks <code class="docutils literal notranslate"><span class="pre">run_dir/checkpoints/last.ckpt</span></code> automatically. This means <strong>SLURM requeue works without any user configuration</strong>: the job is preempted, restarted with the same <code class="docutils literal notranslate"><span class="pre">SLURM_JOB_ID</span></code>, finds its previous run directory, and resumes from the last checkpoint.</p>
+</section>
+<section id="hydra-compatibility">
+<h3>Hydra compatibility<a class="headerlink" href="#hydra-compatibility" title="Link to this heading">#</a></h3>
+<p>When <code class="docutils literal notranslate"><span class="pre">cache_dir</span></code> is active, Hydra’s <code class="docutils literal notranslate"><span class="pre">run.dir</span></code>, <code class="docutils literal notranslate"><span class="pre">sweep.dir</span></code>, and <code class="docutils literal notranslate"><span class="pre">job.chdir</span></code> settings are ignored for trainer outputs (a warning is logged). Hydra still manages its own <code class="docutils literal notranslate"><span class="pre">.hydra/</span></code> config dumps as usual. Note that SLURM <code class="docutils literal notranslate"><span class="pre">.out</span></code>/<code class="docutils literal notranslate"><span class="pre">.err</span></code> files are created by the scheduler before Python starts and cannot be redirected into the run directory.</p>
+</section>
+</section>
+<section id="run-registry">
+<h2>Run Registry<a class="headerlink" href="#run-registry" title="Link to this heading">#</a></h2>
+<p>When <code class="docutils literal notranslate"><span class="pre">cache_dir</span></code> is set, <code class="docutils literal notranslate"><span class="pre">stable-pretraining</span></code> automatically maintains a <strong>filesystem-backed run registry</strong> that indexes every run. Think of it as a local, offline, instant-query alternative to the wandb dashboard — designed for large sweeps on HPC clusters.</p>
+<p>There is <strong>nothing to configure</strong> — if <code class="docutils literal notranslate"><span class="pre">cache_dir</span></code> is set, the registry is active:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">stable_pretraining</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">spt</span>
+
+<span class="n">spt</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cache_dir</span><span class="o">=</span><span class="s2">&quot;/scratch/runs&quot;</span><span class="p">)</span>
+<span class="c1"># That&#39;s it. Every run writes a sidecar.json into its run directory.</span>
+</pre></div>
+</div>
+<section id="architecture">
+<h3>Architecture<a class="headerlink" href="#architecture" title="Link to this heading">#</a></h3>
+<p>The registry uses a <strong>filesystem-first sidecar pattern</strong>. During training, each run writes only plain files — no SQLite, no network I/O:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{run_dir}/
+  sidecar.json    ← atomic JSON snapshot (hparams, summary, status, tags)
+  heartbeat       ← empty file, mtime touched every flush (liveness signal)
+  metrics.csv     ← CSVLogger per-step time series
+  hparams.yaml    ← CSVLogger hparams
+  checkpoints/    ← Lightning checkpoints
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">sidecar.json</span></code> is the <strong>source of truth</strong> for each run. It is atomically rewritten (tmp + fsync + rename) so readers never see a partial file. A separate <strong>scanner</strong> (<code class="docutils literal notranslate"><span class="pre">spt</span> <span class="pre">registry</span> <span class="pre">scan</span></code>) walks <code class="docutils literal notranslate"><span class="pre">{cache_dir}/runs/**/sidecar.json</span></code> and builds a SQLite cache (<code class="docutils literal notranslate"><span class="pre">registry.db</span></code>) for fast querying. This cache is fully derived — deleting it is harmless; run <code class="docutils literal notranslate"><span class="pre">spt</span> <span class="pre">registry</span> <span class="pre">scan</span> <span class="pre">--full</span></code> to rebuild.</p>
+<p>This design eliminates all SQLite contention during training: thousands of concurrent SLURM jobs write only to their own run directory and never touch a shared database.</p>
+</section>
+<section id="what-gets-stored">
+<h3>What gets stored<a class="headerlink" href="#what-gets-stored" title="Link to this heading">#</a></h3>
+<p>The registry captures three categories of data per run, all automatically:</p>
+<ul class="simple">
+<li><p><strong>Config / hparams</strong> — the full Hydra config (trainer, module, data) is flattened into dot-separated keys (e.g. <code class="docutils literal notranslate"><span class="pre">module.optim.optimizer.lr</span></code>, <code class="docutils literal notranslate"><span class="pre">trainer.max_epochs</span></code>) and stored as both <code class="docutils literal notranslate"><span class="pre">config</span></code> and <code class="docutils literal notranslate"><span class="pre">hparams</span></code>. This works the same way as wandb’s config: the Manager flattens the Hydra DictConfig and injects it into <code class="docutils literal notranslate"><span class="pre">module.save_hyperparameters()</span></code> before <code class="docutils literal notranslate"><span class="pre">trainer.fit()</span></code>, so Lightning’s built-in <code class="docutils literal notranslate"><span class="pre">_log_hyperparams</span></code> sends it to <strong>all</strong> loggers (wandb, CSV, TensorBoard, and the registry) automatically.</p></li>
+<li><p><strong>Summary</strong> — every <code class="docutils literal notranslate"><span class="pre">self.log()</span></code> call in your LightningModule accumulates into a wandb-style summary dict (last value per metric key). At the end of training, the final summary (e.g. <code class="docutils literal notranslate"><span class="pre">{&quot;val_acc&quot;:</span> <span class="pre">0.85,</span> <span class="pre">&quot;train_loss&quot;:</span> <span class="pre">0.12}</span></code>) is written to the sidecar.</p></li>
+<li><p><strong>Metadata</strong> — run ID, status (<code class="docutils literal notranslate"><span class="pre">running</span></code>/<code class="docutils literal notranslate"><span class="pre">completed</span></code>/<code class="docutils literal notranslate"><span class="pre">failed</span></code>/<code class="docutils literal notranslate"><span class="pre">orphaned</span></code>), liveness (heartbeat-based), tags, notes, <code class="docutils literal notranslate"><span class="pre">run_dir</span></code> path, and best checkpoint path.</p></li>
+</ul>
+</section>
+<section id="grouping-with-tags">
+<h3>Grouping with tags<a class="headerlink" href="#grouping-with-tags" title="Link to this heading">#</a></h3>
+<p>All grouping is done through <strong>tags</strong> — a flat list of strings attached to each run. There is no separate “project” or “group” concept; <code class="docutils literal notranslate"><span class="pre">cache_dir</span></code> already acts as the project, and tags handle everything else.</p>
+<p>For SLURM array jobs, a <code class="docutils literal notranslate"><span class="pre">&quot;sweep:&lt;SLURM_ARRAY_JOB_ID&gt;&quot;</span></code> tag is automatically added so that all tasks in the same array are queryable as a group. You can add your own tags in YAML:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">logger</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">_target_</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stable_pretraining.registry.RegistryLogger</span>
+<span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">resnet50</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">simclr</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">ablation-v2</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">notes</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Testing</span><span class="nv"> </span><span class="s">higher</span><span class="nv"> </span><span class="s">learning</span><span class="nv"> </span><span class="s">rates&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="querying-runs">
+<h3>Querying runs<a class="headerlink" href="#querying-runs" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">open_registry()</span></code> triggers an incremental scan of the filesystem before returning, so the cache reflects the current state. A short in-process TTL ensures back-to-back queries don’t re-scan.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">stable_pretraining</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">spt</span>
+
+<span class="n">spt</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cache_dir</span><span class="o">=</span><span class="s2">&quot;/scratch/runs&quot;</span><span class="p">)</span>
+<span class="n">reg</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">open_registry</span><span class="p">()</span>
+
+<span class="c1"># All completed runs from a SLURM array sweep</span>
+<span class="n">best</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;sweep:12345&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s2">&quot;completed&quot;</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="s2">&quot;summary.val_acc&quot;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">best</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">run_id</span><span class="si">}</span><span class="s2">: val_acc=</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;val_acc&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  lr=</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">hparams</span><span class="p">[</span><span class="s1">&#39;module.optim.optimizer.lr&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load the best checkpoint directly</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="n">ckpt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">best</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">checkpoint_path</span><span class="p">)</span>
+
+<span class="c1"># Filter by any Hydra config key (deeply nested keys work)</span>
+<span class="n">lars_runs</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">hparams</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;module.optim.optimizer.type&quot;</span><span class="p">:</span> <span class="s2">&quot;LARS&quot;</span><span class="p">})</span>
+
+<span class="c1"># Check which runs are still alive (heartbeat-based)</span>
+<span class="n">active</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">alive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># All resnet runs as a pandas DataFrame</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="s2">&quot;resnet50&quot;</span><span class="p">)</span>
+<span class="c1"># Columns include flattened hparams and summary:</span>
+<span class="c1">#   run_id, status, alive, tags, notes, checkpoint_path,</span>
+<span class="c1">#   hparams.module.optim.optimizer.lr, hparams.trainer.max_epochs,</span>
+<span class="c1">#   summary.val_acc, summary.train_loss, ...</span>
+
+<span class="c1"># Quick analysis</span>
+<span class="n">df</span><span class="p">[[</span><span class="s2">&quot;run_id&quot;</span><span class="p">,</span> <span class="s2">&quot;hparams.module.optim.optimizer.lr&quot;</span><span class="p">,</span> <span class="s2">&quot;summary.val_acc&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+    <span class="s2">&quot;summary.val_acc&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="concurrency-and-slurm-requeue">
+<h3>Concurrency and SLURM requeue<a class="headerlink" href="#concurrency-and-slurm-requeue" title="Link to this heading">#</a></h3>
+<p>Since training jobs only write to their own run directory (plain files, no shared database), there is zero SQLite contention — thousands of concurrent SLURM jobs run safely with no coordination. The scanner is the sole SQLite writer and uses WAL mode so concurrent readers never block it. On SLURM requeue, the run ID is deterministic (derived from <code class="docutils literal notranslate"><span class="pre">SLURM_JOB_ID</span></code>), so the requeued job finds its previous sidecar and resumes seamlessly — the same mechanism used for wandb run resumption and checkpoint recovery.</p>
+</section>
+<section id="liveness-detection">
+<h3>Liveness detection<a class="headerlink" href="#liveness-detection" title="Link to this heading">#</a></h3>
+<p>The registry tracks whether a run is alive via a <strong>heartbeat</strong> file (an empty file whose mtime is touched on every <code class="docutils literal notranslate"><span class="pre">log_metrics</span></code> call). The scanner considers a run alive if its heartbeat is newer than 180 seconds and its status is not terminal. This lets you distinguish running, stalled, and dead jobs without contacting SLURM:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Only alive runs</span>
+spt<span class="w"> </span>registry<span class="w"> </span>ls<span class="w"> </span>--alive
+
+<span class="c1"># Only dead/finished runs</span>
+spt<span class="w"> </span>registry<span class="w"> </span>ls<span class="w"> </span>--dead
+</pre></div>
+</div>
+</section>
+<section id="cli">
+<h3>CLI<a class="headerlink" href="#cli" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">spt</span> <span class="pre">registry</span></code> command lets you query runs from the terminal:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># List all runs</span>
+spt<span class="w"> </span>registry<span class="w"> </span>ls
+
+<span class="c1"># Filter by tag, status, or liveness</span>
+spt<span class="w"> </span>registry<span class="w"> </span>ls<span class="w"> </span>--tag<span class="w"> </span>resnet50<span class="w"> </span>--status<span class="w"> </span>completed
+spt<span class="w"> </span>registry<span class="w"> </span>ls<span class="w"> </span>--alive
+
+<span class="c1"># Top 5 runs by a metric (use --asc for losses)</span>
+spt<span class="w"> </span>registry<span class="w"> </span>best<span class="w"> </span>val_acc
+spt<span class="w"> </span>registry<span class="w"> </span>best<span class="w"> </span>train_loss<span class="w"> </span>--asc<span class="w"> </span>-n<span class="w"> </span><span class="m">10</span>
+
+<span class="c1"># Show full details for a run (config, summary, tags)</span>
+spt<span class="w"> </span>registry<span class="w"> </span>show<span class="w"> </span>&lt;run_id&gt;
+
+<span class="c1"># Export to CSV or Parquet</span>
+spt<span class="w"> </span>registry<span class="w"> </span><span class="nb">export</span><span class="w"> </span>sweep_results.csv<span class="w"> </span>--tag<span class="w"> </span>sweep:12345
+
+<span class="c1"># Manually refresh the SQLite cache from sidecars</span>
+spt<span class="w"> </span>registry<span class="w"> </span>scan
+spt<span class="w"> </span>registry<span class="w"> </span>scan<span class="w"> </span>--full<span class="w">  </span><span class="c1"># re-ingest everything (schema migration, DB rebuild)</span>
+
+<span class="c1"># Migrate from a legacy server-backed registry.db</span>
+spt<span class="w"> </span>registry<span class="w"> </span>migrate<span class="w"> </span>/path/to/old/registry.db<span class="w"> </span>--cache-dir<span class="w"> </span>/scratch/runs
+</pre></div>
+</div>
+<p>By default the CLI uses <code class="docutils literal notranslate"><span class="pre">$SPT_CACHE_DIR/registry.db</span></code> (or the <code class="docutils literal notranslate"><span class="pre">spt.set(cache_dir=...)</span></code> value). Pass <code class="docutils literal notranslate"><span class="pre">--db</span> <span class="pre">/path/to/registry.db</span></code> and/or <code class="docutils literal notranslate"><span class="pre">--cache-dir</span></code> to override.</p>
+</section>
+<section id="disabling-the-registry">
+<h3>Disabling the registry<a class="headerlink" href="#disabling-the-registry" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">spt</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">default_loggers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;registry&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="built-in-methods">
+<h2>Built-in Methods<a class="headerlink" href="#built-in-methods" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">stable-pretraining</span></code> ships with ready-to-use forward functions and matching loss functions for popular self-supervised learning methods:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Forward</p></th>
+<th class="head"><p>Loss</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Supervised</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.supervised_forward</span></code></p></td>
+<td><p>any</p></td>
+<td><p>Standard supervised training with labels</p></td>
+</tr>
+<tr class="row-odd"><td><p>SimCLR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.simclr_forward</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NTXEntLoss</span></code></p></td>
+<td><p>Contrastive learning with 2 augmented views</p></td>
+</tr>
+<tr class="row-even"><td><p>BYOL</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.byol_forward</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BYOLLoss</span></code></p></td>
+<td><p>Momentum-based self-distillation without negatives</p></td>
+</tr>
+<tr class="row-odd"><td><p>VICReg</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.vicreg_forward</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VICRegLoss</span></code></p></td>
+<td><p>Variance-invariance-covariance regularization</p></td>
+</tr>
+<tr class="row-even"><td><p>Barlow Twins</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.barlow_twins_forward</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BarlowTwinsLoss</span></code></p></td>
+<td><p>Cross-correlation matrix alignment to identity</p></td>
+</tr>
+<tr class="row-odd"><td><p>SwAV</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.swav_forward</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sinkhorn_knopp</span></code></p></td>
+<td><p>Online clustering with Sinkhorn-Knopp normalization</p></td>
+</tr>
+<tr class="row-even"><td><p>NNCLR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.nnclr_forward</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NTXEntLoss</span></code></p></td>
+<td><p>Nearest-neighbor contrastive learning</p></td>
+</tr>
+<tr class="row-odd"><td><p>DINO</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.dino_forward</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DINOv1Loss</span></code></p></td>
+<td><p>Self-distillation with multi-crop and centering</p></td>
+</tr>
+<tr class="row-even"><td><p>DINOv2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.dinov2_forward</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DINOv2Loss</span></code></p></td>
+<td><p>DINO + iBOT masked patch prediction</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="backbones">
+<h2>Backbones<a class="headerlink" href="#backbones" title="Link to this heading">#</a></h2>
+<p>Load architectures from popular libraries or use built-in components:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># From torchvision</span>
+<span class="n">backbone</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">backbone</span><span class="o">.</span><span class="n">from_torchvision</span><span class="p">(</span><span class="s2">&quot;resnet50&quot;</span><span class="p">)</span>
+
+<span class="c1"># From timm (thousands of pretrained models)</span>
+<span class="n">backbone</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">backbone</span><span class="o">.</span><span class="n">from_timm</span><span class="p">(</span><span class="s2">&quot;vit_base_patch16_224&quot;</span><span class="p">)</span>
+
+<span class="c1"># From HuggingFace</span>
+<span class="n">backbone</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">backbone</span><span class="o">.</span><span class="n">vit_hf</span><span class="p">(</span><span class="s2">&quot;google/vit-base-patch16-224&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Additional building blocks: <code class="docutils literal notranslate"><span class="pre">MLP</span></code>, <code class="docutils literal notranslate"><span class="pre">ConvMixer</span></code>, <code class="docutils literal notranslate"><span class="pre">Resnet9</span></code>, <code class="docutils literal notranslate"><span class="pre">TeacherStudentWrapper</span></code> (EMA), <code class="docutils literal notranslate"><span class="pre">MAEDecoder</span></code>, <code class="docutils literal notranslate"><span class="pre">MaskedEncoder</span></code>, <code class="docutils literal notranslate"><span class="pre">FlexibleTransformer</span></code>, <code class="docutils literal notranslate"><span class="pre">PatchMasking</span></code>, <code class="docutils literal notranslate"><span class="pre">IJEPAMasking</span></code>, <code class="docutils literal notranslate"><span class="pre">MultiBlockMasking</span></code>, <code class="docutils literal notranslate"><span class="pre">LinearProbe</span></code>, <code class="docutils literal notranslate"><span class="pre">AutoLinearClassifier</span></code>, <code class="docutils literal notranslate"><span class="pre">AutoTuneMLP</span></code>, and more.</p>
+</section>
+<section id="optimizers-schedulers">
+<h2>Optimizers &amp; Schedulers<a class="headerlink" href="#optimizers-schedulers" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Component</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LARS</span></code></p></td>
+<td><p>Layer-wise Adaptive Rate Scaling - the standard optimizer for SSL</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LinearWarmupCosineAnnealing</span></code></p></td>
+<td><p>Linear warmup followed by cosine decay</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LinearWarmupCyclicAnnealing</span></code></p></td>
+<td><p>Linear warmup followed by cyclic cosine decay</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CosineDecayer</span></code></p></td>
+<td><p>Pure cosine decay schedule</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">create_optimizer</span></code> / <code class="docutils literal notranslate"><span class="pre">create_scheduler</span></code></p></td>
+<td><p>Factory functions that accept string names, dicts, or partial objects</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">Module</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">optim</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;optimizer&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;LARS&quot;</span><span class="p">,</span> <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;weight_decay&quot;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">},</span>
+        <span class="s2">&quot;scheduler&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;LinearWarmupCosineAnnealing&quot;</span><span class="p">},</span>
+        <span class="s2">&quot;interval&quot;</span><span class="p">:</span> <span class="s2">&quot;epoch&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="complete-example">
 <h2>Complete Example<a class="headerlink" href="#complete-example" title="Link to this heading">#</a></h2>
@@ -710,7 +1288,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </details>
 </section>
 <section id="quick-start-with-spt-cli">
-<h2>🚀 Quick Start with <code class="docutils literal notranslate"><span class="pre">spt</span></code> CLI<a class="headerlink" href="#quick-start-with-spt-cli" title="Link to this heading">#</a></h2>
+<h2>Quick Start with <code class="docutils literal notranslate"><span class="pre">spt</span></code> CLI<a class="headerlink" href="#quick-start-with-spt-cli" title="Link to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">spt</span></code> command launches training from YAML configuration files using Hydra.</p>
 <p><strong>Note:</strong> <code class="docutils literal notranslate"><span class="pre">spt</span></code> requires YAML configs. If you have Python-based configs, you can:</p>
 <ul class="simple">
@@ -789,40 +1367,52 @@ uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </s
 <li><p><strong>LaTeX support in Matplotlib</strong> (optional)</p>
  <details>
  <summary>Click to expand setup instructions</summary>
-<p><strong>Install Computer Modern fonts:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.local/share/fonts
-cp<span class="w"> </span>assets/cm-unicode-0.7.0<span class="se">\ </span><span class="m">2</span>/*.ttf<span class="w"> </span>~/.local/share/fonts/
-fc-cache<span class="w"> </span>-f<span class="w"> </span>-v
-<span class="c1"># verify: fc-list | grep cmu</span>
-</pre></div>
-</div>
-<p><strong>Clear matplotlib font cache:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import shutil, matplotlib; shutil.rmtree(matplotlib.get_cachedir())&quot;</span>
-</pre></div>
-</div>
 <p><strong>Install TeX Live (minimal, no sudo):</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/tmp
 wget<span class="w"> </span>https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar<span class="w"> </span>xzf<span class="w"> </span>install-tl-unx.tar.gz
 <span class="nb">cd</span><span class="w"> </span>install-tl-*/
 ./install-tl<span class="w"> </span>--texdir<span class="w"> </span>~/texlive<span class="w"> </span>--no-interaction<span class="w"> </span>--scheme<span class="o">=</span>scheme-basic
-~/texlive/bin/x86_64-linux/tlmgr<span class="w"> </span>install<span class="w"> </span>type1cm<span class="w"> </span>cm-super<span class="w"> </span>dvipng<span class="w"> </span>collection-fontsrecommended<span class="w"> </span>amsmath<span class="w"> </span>amssymb<span class="w"> </span>bm<span class="w"> </span>underscore<span class="w"> </span>xcolor
 </pre></div>
 </div>
 <p>Add to your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> (or equivalent):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/texlive/bin/x86_64-linux:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
-<p><strong>Verify:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
-<span class="s2">import matplotlib; matplotlib.use(&#39;Agg&#39;)</span>
-<span class="s2">import matplotlib.pyplot as plt</span>
-<span class="s2">plt.rc(&#39;text&#39;, usetex=True)</span>
-<span class="s2">plt.rc(&#39;font&#39;, family=&#39;serif&#39;)</span>
-<span class="s2">plt.figure(); plt.title(r&#39;\$\sum_{i=1}^n x_i\$&#39;)</span>
-<span class="s2">plt.savefig(&#39;/tmp/tex_test.png&#39;)</span>
-<span class="s2">print(&#39;Success!&#39;)</span>
-<span class="s2">&quot;</span>
+<p><strong>Install required LaTeX packages.</strong> Pin a known-good CTAN mirror first (the default redirector occasionally serves corrupt files or unreachable hosts), then install one package per line so any failure is visible:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tlmgr<span class="w"> </span>option<span class="w"> </span>repository<span class="w"> </span>https://ctan.math.illinois.edu/systems/texlive/tlnet
+<span class="k">for</span><span class="w"> </span>pkg<span class="w"> </span><span class="k">in</span><span class="w"> </span>type1cm<span class="w"> </span>cm-super<span class="w"> </span>dvipng<span class="w"> </span>collection-fontsrecommended<span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>amsmath<span class="w"> </span>amsfonts<span class="w"> </span>tools<span class="w"> </span>underscore<span class="w"> </span>xcolor<span class="w"> </span>iftex<span class="w"> </span>epstopdf-pkg<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>tlmgr<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$pkg</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;FAILED: </span><span class="nv">$pkg</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<p>Notes on the package list:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">amsfonts</span></code> provides <code class="docutils literal notranslate"><span class="pre">amssymb.sty</span></code>; <code class="docutils literal notranslate"><span class="pre">tools</span></code> provides <code class="docutils literal notranslate"><span class="pre">bm.sty</span></code>; <code class="docutils literal notranslate"><span class="pre">iftex</span></code> provides <code class="docutils literal notranslate"><span class="pre">ifvtex.sty</span></code>. Naming these as <code class="docutils literal notranslate"><span class="pre">amssymb</span></code>/<code class="docutils literal notranslate"><span class="pre">bm</span></code>/<code class="docutils literal notranslate"><span class="pre">ifvtex</span></code> directly will fail with “package not present in repository”.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">tlmgr</span></code> reports checksum mismatches, switch to a different mirror (e.g. <code class="docutils literal notranslate"><span class="pre">https://mirror.ox.ac.uk/sites/ctan.org/systems/texlive/tlnet</span></code>) and rerun.</p></li>
+</ul>
+<p><strong>Computer Modern TTF fonts (only if you also use <code class="docutils literal notranslate"><span class="pre">usetex=False</span></code>):</strong> with <code class="docutils literal notranslate"><span class="pre">usetex=True</span></code>, all matplotlib text is rendered by LaTeX using TeX Live’s bundled fonts and this step is unnecessary. Install the TTFs only if you want CMU for matplotlib’s own text rendering (no LaTeX roundtrip):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.local/share/fonts
+cp<span class="w"> </span>assets/cm-unicode-0.7.0<span class="se">\ </span><span class="m">2</span>/*.ttf<span class="w"> </span>~/.local/share/fonts/
+fc-cache<span class="w"> </span>-f<span class="w"> </span>-v<span class="w">   </span><span class="c1"># requires fontconfig; skip if unavailable</span>
+<span class="c1"># verify: fc-list | grep cmu</span>
+</pre></div>
+</div>
+<p><strong>Clear matplotlib font cache</strong> (after either step above):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import shutil, matplotlib; shutil.rmtree(matplotlib.get_cachedir(), ignore_errors=True)&quot;</span>
+</pre></div>
+</div>
+<p><strong>Verify</strong> (heredoc with single-quoted <code class="docutils literal notranslate"><span class="pre">'PY'</span></code> so the shell does not touch <code class="docutils literal notranslate"><span class="pre">$</span></code>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;&#39;PY&#39;</span>
+<span class="s">import matplotlib; matplotlib.use(&#39;Agg&#39;)</span>
+<span class="s">import matplotlib.pyplot as plt</span>
+<span class="s">plt.rc(&#39;text&#39;, usetex=True)</span>
+<span class="s">plt.rc(&#39;font&#39;, family=&#39;serif&#39;)</span>
+<span class="s">plt.figure(); plt.title(r&#39;$\sum_{i=1}^n x_i$&#39;)</span>
+<span class="s">plt.savefig(&#39;/tmp/tex_test.png&#39;)</span>
+<span class="s">print(&#39;Success!&#39;)</span>
+<span class="s">PY</span>
 </pre></div>
 </div>
  </details>
@@ -836,6 +1426,18 @@ tar<span class="w"> </span>xzf<span class="w"> </span>install-tl-unx.tar.gz
 <li><p>You can also contribute by adding new methods, datasets, or configurations that improve the current performance of a method in the <a class="reference external" href="https://github.com/galilai-group/stable-pretraining/tree/main/benchmarks">benchmark section</a>.</p></li>
 </ul>
 </section>
+<section id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Link to this heading">#</a></h2>
+<p>If you use <code class="docutils literal notranslate"><span class="pre">stable-pretraining</span></code> in your research, please cite:</p>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">balestriero2025stable</span><span class="p">,</span>
+<span class="w">  </span><span class="na">title</span><span class="p">=</span><span class="s">{stable-pretraining-v1: Foundation Model Research Made Simple}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">author</span><span class="p">=</span><span class="s">{Balestriero, Randall and Van Assel, Hugues and BuGhanem, Sami and Maes, Lucas}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">journal</span><span class="p">=</span><span class="s">{arXiv preprint arXiv:2511.19484}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">year</span><span class="p">=</span><span class="s">{2025}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
 <section id="contributors">
 <h2>Contributors<a class="headerlink" href="#contributors" title="Link to this heading">#</a></h2>
 <p>Core contributors (in order of joining the project):</p>
@@ -848,6 +1450,13 @@ tar<span class="w"> </span>xzf<span class="w"> </span>install-tl-unx.tar.gz
 </section>
 </section>
 <div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cache_dir/">Cache directory &amp; run layout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli/">CLI reference</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/backbone/">stable_pretraining.backbone</a></li>
@@ -858,6 +1467,8 @@ tar<span class="w"> </span>xzf<span class="w"> </span>install-tl-unx.tar.gz
 <li class="toctree-l1"><a class="reference internal" href="api/module/">stable_pretraining.module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/monitors/">stable_pretraining.callbacks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/optim/">stable_pretraining.optim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/registry/">stable_pretraining.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/web/">stable_pretraining.web</a></li>
 </ul>
 </div>
 
@@ -904,18 +1515,48 @@ tar<span class="w"> </span>xzf<span class="w"> </span>install-tl-unx.tar.gz
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-structure">Core Structure</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">1 - Data</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#module">2 - Module</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#callbacks">3 - Callbacks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#callbacks">3 - Callbacks</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-monitoring">Evaluation &amp; Monitoring</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#training-utilities">Training Utilities</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpointing-export">Checkpointing &amp; Export</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#system-logging">System &amp; Logging</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#intelligent-queue-system">Intelligent Queue System</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trainer">4 - Trainer</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-configuration">Global Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-directory-cache-dir">Output Directory (<code class="docutils literal notranslate"><span class="pre">cache_dir</span></code>)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enabling-cache-dir">Enabling <code class="docutils literal notranslate"><span class="pre">cache_dir</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-run-id-is-generated">How the run ID is generated</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ckpt-path-is-for-loading-only"><code class="docutils literal notranslate"><span class="pre">ckpt_path</span></code> is for loading only</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hydra-compatibility">Hydra compatibility</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-registry">Run Registry</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture">Architecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-gets-stored">What gets stored</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grouping-with-tags">Grouping with tags</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-runs">Querying runs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concurrency-and-slurm-requeue">Concurrency and SLURM requeue</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#liveness-detection">Liveness detection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cli">CLI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#disabling-the-registry">Disabling the registry</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#built-in-methods">Built-in Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backbones">Backbones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimizers-schedulers">Optimizers &amp; Schedulers</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-example">Complete Example</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start-with-spt-cli">🚀 Quick Start with <code class="docutils literal notranslate"><span class="pre">spt</span></code> CLI</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start-with-spt-cli">Quick Start with <code class="docutils literal notranslate"><span class="pre">spt</span></code> CLI</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-training">Local Training</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm-cluster-training">SLURM Cluster Training</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ways-you-can-contribute">Ways You Can Contribute:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citation">Citation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributors">Contributors</a></li>
 </ul>
   </nav></div>

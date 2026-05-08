@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>stable_pretraining.data.datasets &#8212; stable-pretraining 0.1.dev1+gfec0d8cf3 documentation</title>
+    <title>stable_pretraining.data.datasets &#8212; stable-pretraining 0.1.dev1+g4d234ce88 documentation</title>
   
   
   
@@ -31,7 +31,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css?v=fd6457a4" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -42,9 +42,10 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../../../_static/documentation_options.js?v=c1d29c9d"></script>
+    <script src="../../../../_static/documentation_options.js?v=ca3cbe1c"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/sg-tags.js?v=d80f6fa4"></script>
     <script src="../../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/stable_pretraining/data/datasets';</script>
     <link rel="index" title="Index" href="../../../../genindex/" />
@@ -128,7 +129,7 @@
   
   
   
-    <p class="title logo__title">stable-pretraining 0.1.dev1+gfec0d8cf3 documentation</p>
+    <p class="title logo__title">stable-pretraining 0.1.dev1+g4d234ce88 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -146,6 +147,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../releases/">Releases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contributing/">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../bibliography/">Bibliography</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../cache_dir/">Cache directory &amp; run layout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cli/">CLI reference</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul class="nav bd-sidenav">
@@ -225,6 +231,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/gen_modules/stable_pretraining.optim.LinearWarmupCosineAnnealing/">LinearWarmupCosineAnnealing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/gen_modules/stable_pretraining.optim.LinearWarmupCyclicAnnealing/">LinearWarmupCyclicAnnealing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/gen_modules/stable_pretraining.optim.LinearWarmupThreeStepsAnnealing/">LinearWarmupThreeStepsAnnealing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../api/registry/">stable_pretraining.registry</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/gen_modules/stable_pretraining.registry.RegistryLogger/">RegistryLogger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/gen_modules/stable_pretraining.registry.Registry/">Registry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/gen_modules/stable_pretraining.registry.RunRecord/">RunRecord</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/gen_modules/stable_pretraining.registry.open_registry/">open_registry</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../api/web/">stable_pretraining.web</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/gen_modules/stable_pretraining.web.serve/">serve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/gen_modules/stable_pretraining.web.scan.RunScanner/">RunScanner</a></li>
 </ul>
 </details></li>
 </ul>
@@ -366,8 +384,6 @@
 <span class="c1"># ---------------------------------------------------------------------------</span>
 
 
-<div class="viewcode-block" id="DatasetMixin">
-<a class="viewcode-back" href="../../../../stable_pretraining.data/#stable_pretraining.data.DatasetMixin">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DatasetMixin</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Shared logic for all dataset types.</span>
 
@@ -380,15 +396,22 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">transform</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_trainer</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="DatasetMixin.set_pl_trainer">
-<a class="viewcode-back" href="../../../../stable_pretraining.data/#stable_pretraining.data.DatasetMixin.set_pl_trainer">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_pl_trainer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a Lightning trainer so its state is injected into samples.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_trainer</span> <span class="o">=</span> <span class="n">trainer</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_trainer</span> <span class="o">=</span> <span class="n">trainer</span>
 
+    <span class="k">def</span><span class="w"> </span><span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Drop the trainer back-reference. Pickle-walking it reaches</span>
+        <span class="c1"># `trainer.train_dataloader._iterator`, a</span>
+        <span class="c1"># `_MultiProcessingDataLoaderIter`, which raises on __getstate__.</span>
+        <span class="c1"># Spawn-mode DataLoader workers therefore can&#39;t serialise any</span>
+        <span class="c1"># dataset that has had `set_pl_trainer` called on it.</span>
+        <span class="c1"># Workers see only a snapshot of trainer state at spawn time</span>
+        <span class="c1"># anyway; `process_sample` already handles `_trainer is None`.</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;_trainer&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">state</span>
 
-<div class="viewcode-block" id="DatasetMixin.process_sample">
-<a class="viewcode-back" href="../../../../stable_pretraining.data/#stable_pretraining.data.DatasetMixin.process_sample">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">process_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Run a raw sample dict through trainer-injection and transforms.</span>
 
@@ -411,13 +434,11 @@
             <span class="n">sample</span><span class="p">[</span><span class="s2">&quot;current_epoch&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_trainer</span><span class="o">.</span><span class="n">current_epoch</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">:</span>
             <span class="n">sample</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">sample</span></div>
-</div>
-
+        <span class="k">return</span> <span class="n">sample</span>
 
 
 <div class="viewcode-block" id="Dataset">
-<a class="viewcode-back" href="../../../../stable_pretraining.data/#stable_pretraining.data.Dataset">[docs]</a>
+<a class="viewcode-back" href="../../../../api/gen_modules/stable_pretraining.data.Dataset/#stable_pretraining.data.Dataset">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Dataset</span><span class="p">(</span><span class="n">DatasetMixin</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base map-style dataset with transform and trainer support.&quot;&quot;&quot;</span>
 
@@ -432,8 +453,6 @@
 
 
 
-<div class="viewcode-block" id="IterableDataset">
-<a class="viewcode-back" href="../../../../stable_pretraining.data/#stable_pretraining.data.IterableDataset">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">IterableDataset</span><span class="p">(</span><span class="n">DatasetMixin</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">IterableDataset</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base iterable (streaming) dataset with transform and trainer support.&quot;&quot;&quot;</span>
 
@@ -441,8 +460,7 @@
         <span class="n">DatasetMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transform</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
-
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
 
 <span class="c1"># ---------------------------------------------------------------------------</span>
@@ -451,7 +469,7 @@
 
 
 <div class="viewcode-block" id="Subset">
-<a class="viewcode-back" href="../../../../stable_pretraining.data/#stable_pretraining.data.Subset">[docs]</a>
+<a class="viewcode-back" href="../../../../api/gen_modules/stable_pretraining.data.Subset/#stable_pretraining.data.Subset">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Subset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Subset of a dataset at specified indices.</span>
 
@@ -489,8 +507,14 @@
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;dataset&quot;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;dataset&quot;</span><span class="p">)</span>
+        <span class="c1"># Don&#39;t proxy dunders to the wrapped dataset. Pickle/copy/etc. on</span>
+        <span class="c1"># the Subset must use Subset&#39;s own machinery, not the inner ds&#39;s.</span>
+        <span class="c1"># On Python &lt;3.11 ``object.__getstate__`` doesn&#39;t exist, so a bare</span>
+        <span class="c1"># proxy makes pickle read the inner dataset&#39;s ``__getstate__`` and</span>
+        <span class="c1"># serialize the wrong state (inner&#39;s ``__dict__`` under Subset&#39;s</span>
+        <span class="c1"># class), breaking spawn-mode DataLoader workers.</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;dataset&quot;</span> <span class="ow">or</span> <span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
 
 
@@ -501,7 +525,7 @@
 
 
 <div class="viewcode-block" id="FromTorchDataset">
-<a class="viewcode-back" href="../../../../stable_pretraining.data/#stable_pretraining.data.FromTorchDataset">[docs]</a>
+<a class="viewcode-back" href="../../../../api/gen_modules/stable_pretraining.data.FromTorchDataset/#stable_pretraining.data.FromTorchDataset">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">FromTorchDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrapper that converts a positional-return PyTorch dataset into dict samples.</span>
 
@@ -542,8 +566,6 @@
 <span class="c1"># ---------------------------------------------------------------------------</span>
 
 
-<div class="viewcode-block" id="HFMapDataset">
-<a class="viewcode-back" href="../../../../stable_pretraining.data/#stable_pretraining.data.HFMapDataset">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">HFMapDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Map-style wrapper around a HuggingFace ``datasets.Dataset``.</span>
 
@@ -576,8 +598,6 @@
     <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">num_rows</span>
 
-<div class="viewcode-block" id="HFMapDataset.shuffle">
-<a class="viewcode-back" href="../../../../stable_pretraining.data/#stable_pretraining.data.HFMapDataset.shuffle">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Shuffle the dataset in-place.</span>
 
@@ -590,17 +610,13 @@
 <span class="sd">            ``self`` for chaining.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
-
+        <span class="k">return</span> <span class="bp">self</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">column_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">column_names</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">column_names</span>
 
 
-
-<div class="viewcode-block" id="HFIterableDataset">
-<a class="viewcode-back" href="../../../../stable_pretraining.data/#stable_pretraining.data.HFIterableDataset">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">HFIterableDataset</span><span class="p">(</span><span class="n">IterableDataset</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Streaming wrapper around a HuggingFace ``datasets.IterableDataset``.</span>
 
@@ -633,8 +649,6 @@
         <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">:</span>
             <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_sample</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
 
-<div class="viewcode-block" id="HFIterableDataset.shuffle">
-<a class="viewcode-back" href="../../../../stable_pretraining.data/#stable_pretraining.data.HFIterableDataset.shuffle">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="mi">10_000</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Buffer-shuffle the streaming dataset in-place.</span>
 
@@ -647,13 +661,11 @@
 <span class="sd">            ``self`` for chaining.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="n">buffer_size</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
-
+        <span class="k">return</span> <span class="bp">self</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">column_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">column_names</span></div>
-
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">column_names</span>
 
 
 <span class="c1"># ---------------------------------------------------------------------------</span>
@@ -662,7 +674,7 @@
 
 
 <div class="viewcode-block" id="HFDataset">
-<a class="viewcode-back" href="../../../../stable_pretraining.data/#stable_pretraining.data.HFDataset">[docs]</a>
+<a class="viewcode-back" href="../../../../api/gen_modules/stable_pretraining.data.HFDataset/#stable_pretraining.data.HFDataset">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">HFDataset</span><span class="p">(</span>
     <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rename_columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">remove_columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">):</span>
