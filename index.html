@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>stable-pretraining &#8212; stable-pretraining 0.1.dev1+gbce7c8b35 documentation</title>
+    <title>stable-pretraining &#8212; stable-pretraining 0.1.dev1+gf84c7c26d documentation</title>
   
   
   
@@ -43,7 +43,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=639854c6"></script>
+    <script src="_static/documentation_options.js?v=740e0d19"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/sg-tags.js?v=d80f6fa4"></script>
@@ -131,7 +131,7 @@
   
   
   
-    <p class="title logo__title">stable-pretraining 0.1.dev1+gbce7c8b35 documentation</p>
+    <p class="title logo__title">stable-pretraining 0.1.dev1+gf84c7c26d documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -428,8 +428,18 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how">How?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-setup">Quick setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#second-tour">30-second tour</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jax-backend-experimental">JAX backend (experimental)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-structure">Core Structure</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">1 - Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">1 - Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-side-batched-augmentation-gpu-transform">GPU-side batched augmentation (<code class="docutils literal notranslate"><span class="pre">gpu_transform</span></code>)</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#before-torchvision-augmentation-in-cpu-workers">Before — torchvision augmentation in CPU workers</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#after-same-augs-batched-on-the-gpu">After — same augs, batched on the GPU</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#what-changed">What changed</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#module">2 - Module</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#callbacks">3 - Callbacks</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-monitoring">Evaluation &amp; Monitoring</a></li>
@@ -440,6 +450,7 @@
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trainer">4 - Trainer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sharded-training-fsdp2-deepspeed">Sharded training: FSDP2 &amp; DeepSpeed</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-configuration">Global Configuration</a></li>
@@ -494,18 +505,29 @@
 <a class="reference external" href="https://github.com/galilai-group/stable-pretraining/tree/main/benchmarks"><img alt="Benchmarks" src="https://img.shields.io/badge/Benchmarks-blue.svg" /></a>
 <a class="reference external" href="https://github.com/galilai-group/stable-pretraining/actions/workflows/testing.yml"><img alt="Test Status" src="https://github.com/galilai-group/stable-pretraining/actions/workflows/testing.yml/badge.svg" /></a>
 <a class="reference external" href="https://pytorch.org/get-started/locally/"><img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&amp;logoColor=white" /></a>
+<a class="reference internal" href="#jax-backend"><span class="xref myst"><img alt="JAX" src="https://img.shields.io/badge/JAX-experimental-9cf?logo=google&amp;logoColor=white" /></span></a>
 <a class="reference external" href="https://github.com/astral-sh/ruff"><img alt="Ruff" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json" /></a>
 <a class="reference external" href="https://opensource.org/licenses/MIT"><img alt="License" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
 <a class="reference external" href="https://wandb.ai/site"><img alt="WandB" src="https://raw.githubusercontent.com/wandb/assets/main/wandb-github-badge-gradient.svg" /></a></p>
-<p>AI is moving beyond labels. Today’s models learn through <strong>self-supervision</strong> and <strong>multimodal alignment</strong>, extracting knowledge from raw data to build general-purpose representations that work across tasks. These foundation models are then deployed at scale, often after finetuning, to solve tasks in zero or few shot.</p>
-<p><code class="docutils literal notranslate"><span class="pre">stable-pretraining</span></code> is a PyTorch framework built on top of Lightning for this new paradigm. What sets us apart is <strong>real-time visibility into training quality</strong> through extensive logging and monitoring. Our callback ecosystem (<code class="docutils literal notranslate"><span class="pre">OnlineProbe</span></code>, <code class="docutils literal notranslate"><span class="pre">OnlineKNN</span></code>, <code class="docutils literal notranslate"><span class="pre">RankMe</span></code>, and many more) provides insights into feature collapse, training dynamics, and downstream performance. Data flows as dictionaries through model components, metrics, and callbacks, making any intermediate value accessible and debuggable. With <code class="docutils literal notranslate"><span class="pre">stable-pretraining</span></code>: track everything, debug faster, iterate sooner.</p>
-<p>Join our Discord: <a class="reference external" href="https://discord.gg/adzpqWKM25">https://discord.gg/8M6hT39X</a></p>
+<p><strong>PyTorch Lightning for foundation-model research.</strong> Dict-shaped state
+so any intermediate tensor is loggable, live evaluation probes that
+attach without touching the training loop (<code class="docutils literal notranslate"><span class="pre">OnlineProbe</span></code>, <code class="docutils literal notranslate"><span class="pre">OnlineKNN</span></code>,
+<code class="docutils literal notranslate"><span class="pre">RankMe</span></code>, <code class="docutils literal notranslate"><span class="pre">LiDAR</span></code>, …), SLURM-grade requeue + atomic checkpoints +
+queryable run registry, GPU-side batched augmentation, and 30+ ready
+recipes spanning SSL, supervised, and multi-modal pretraining
+(SimCLR, DINO/DINOv2, MAE, BYOL, VICReg, Barlow Twins, LeJEPA, CLIP, …).
+An <strong>experimental <a class="reference internal" href="#jax-backend"><span class="xref myst">JAX / Flax-NNX backend</span></a></strong> mirrors the same
+design (forward-dict, callbacks, SLURM-grade Manager) for users who prefer JAX.</p>
+<p><a class="reference internal" href="#30s-tour"><span class="xref myst">30-second tour ↓</span></a> · <a class="reference internal" href="#jax-backend"><span class="xref myst">JAX backend ↓</span></a> ·
+<a class="reference internal" href="#built-in-methods">Built-in methods ↓</a> · <a class="reference external" href="https://discord.gg/adzpqWKM25">Discord</a></p>
 <section id="table-of-contents">
 <h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="#how">How?</a></p></li>
 <li><p><a class="reference internal" href="#quick-setup">Quick Setup</a></p></li>
 <li><p><a class="reference internal" href="#quick-setup">Tutorial Notebook</a></p></li>
+<li><p><a class="reference internal" href="#30s-tour"><span class="xref myst">30-second tour</span></a></p></li>
+<li><p><a class="reference internal" href="#jax-backend"><span class="xref myst">JAX backend (experimental)</span></a></p></li>
 <li><p><a class="reference internal" href="#core-structure">Core Structure</a></p>
 <ul>
 <li><p><a class="reference internal" href="api/data/#module-stable_pretraining.data" title="stable_pretraining.data"><span class="xref myst py py-mod">Data</span></a></p></li>
@@ -549,6 +571,191 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>notebook<span class="w"> </span>examples/simclr_cifar10_tutorial.ipynb
 </pre></div>
 </div>
+<p><a id="30s-tour"></a></p>
+</section>
+<section id="second-tour">
+<h2>30-second tour<a class="headerlink" href="#second-tour" title="Link to this heading">#</a></h2>
+<p>The whole framework is four components that pass <strong>dicts</strong> to each other.
+Once you see the shape, the rest of the README is reference.</p>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>%%{init: {&#39;theme&#39;:&#39;base&#39;, &#39;themeVariables&#39;: {
+    &#39;fontFamily&#39;:&#39;-apple-system, BlinkMacSystemFont, system-ui, sans-serif&#39;,
+    &#39;fontSize&#39;:&#39;14px&#39;,
+    &#39;primaryColor&#39;:&#39;#fafafa&#39;,
+    &#39;primaryTextColor&#39;:&#39;#1f2937&#39;,
+    &#39;primaryBorderColor&#39;:&#39;#9ca3af&#39;,
+    &#39;lineColor&#39;:&#39;#9ca3af&#39;,
+    &#39;edgeLabelBackground&#39;:&#39;#ffffff&#39;
+}}}%%
+flowchart LR
+    classDef stack fill:#f9fafb,stroke:#9ca3af,color:#111827,stroke-width:1px
+    classDef yours fill:#eef2ff,stroke:#6366f1,color:#3730a3,stroke-width:1px
+    classDef hook  fill:#f0fdf4,stroke:#22c55e,color:#14532d,stroke-width:1px
+    classDef orch  fill:#1f2937,stroke:#1f2937,color:#f9fafb,stroke-width:0px
+
+    DM([DataModule])
+    TR([Lightning Trainer])
+    MOD([Module])
+    CB([Callbacks])
+    LOG([Loggers · Registry])
+    MGR((Manager))
+
+    DM --&gt;|batch| TR --&gt; MOD
+    MOD --&gt;|state| CB
+    MOD --&gt; LOG
+    CB --&gt; LOG
+    MGR -.- TR
+
+    class DM yours
+    class MOD yours
+    class CB hook
+    class TR stack
+    class LOG stack
+    class MGR orch
+</pre></div>
+</div>
+<p><em>Indigo</em> nodes are what you write (data + forward). <em>Green</em> is the
+hook surface (callbacks). <em>Slate</em> is the orchestration that runs
+underneath.</p>
+<p>A minimal end-to-end run looks like this (substitute your own loader / loss):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">lightning</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">stable_pretraining</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">spt</span>
+
+<span class="c1"># 1. Data flows as dicts. CPU transforms decode + resize; random</span>
+<span class="c1">#    augmentation can live on the GPU via `gpu_transform=` (optional).</span>
+<span class="n">train_ds</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">HFDataset</span><span class="p">(</span><span class="s2">&quot;cifar10&quot;</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=...</span><span class="p">)</span>
+<span class="n">val_ds</span>   <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">HFDataset</span><span class="p">(</span><span class="s2">&quot;cifar10&quot;</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">,</span>  <span class="n">transform</span><span class="o">=...</span><span class="p">)</span>
+<span class="n">dm</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataModule</span><span class="p">(</span>
+    <span class="n">train</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">train_ds</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span>
+    <span class="n">val</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">val_ds</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 2. Module = backbone + a forward function that returns a state dict.</span>
+<span class="c1">#    `forward.simclr` (and friends) are pre-built; you can also</span>
+<span class="c1">#    write your own — anything returning {&quot;loss&quot;: ..., &quot;embedding&quot;: ...}.</span>
+<span class="n">module</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">Module</span><span class="p">(</span>
+    <span class="n">backbone</span><span class="o">=</span><span class="n">spt</span><span class="o">.</span><span class="n">backbone</span><span class="o">.</span><span class="n">from_timm</span><span class="p">(</span><span class="s2">&quot;resnet18&quot;</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="n">projector</span><span class="o">=</span><span class="n">spt</span><span class="o">.</span><span class="n">backbone</span><span class="o">.</span><span class="n">MLP</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span>
+    <span class="n">forward</span><span class="o">=</span><span class="n">spt</span><span class="o">.</span><span class="n">forward</span><span class="o">.</span><span class="n">simclr</span><span class="p">,</span>
+    <span class="n">simclr_loss</span><span class="o">=</span><span class="n">spt</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">NTXEntLoss</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 3. Callbacks watch the state dict and train online probes / log metrics</span>
+<span class="c1">#    without touching the main loop.</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">max_epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="s2">&quot;bf16-mixed&quot;</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span>
+    <span class="n">spt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">OnlineProbe</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;probe&quot;</span><span class="p">,</span> <span class="nb">input</span><span class="o">=</span><span class="s2">&quot;embedding&quot;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span>
+                              <span class="n">probe</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">loss</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()),</span>
+    <span class="n">spt</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">OnlineKNN</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;knn&quot;</span><span class="p">,</span> <span class="nb">input</span><span class="o">=</span><span class="s2">&quot;embedding&quot;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span>
+                            <span class="n">queue_length</span><span class="o">=</span><span class="mi">10_000</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="c1"># 4. Manager wraps fit() with SLURM-requeue, atomic checkpoints, and</span>
+<span class="c1">#    the run registry. On a workstation it&#39;s just a thin call; on a</span>
+<span class="c1">#    cluster it adds preempt/resume + run tracking for free.</span>
+<span class="n">spt</span><span class="o">.</span><span class="n">Manager</span><span class="p">(</span><span class="n">trainer</span><span class="o">=</span><span class="n">trainer</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">dm</span><span class="p">)()</span>
+</pre></div>
+</div>
+<p>A single sample’s journey through the stack:</p>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>%%{init: {&#39;theme&#39;:&#39;base&#39;, &#39;themeVariables&#39;: {
+    &#39;fontFamily&#39;:&#39;-apple-system, BlinkMacSystemFont, system-ui, sans-serif&#39;,
+    &#39;fontSize&#39;:&#39;13px&#39;,
+    &#39;primaryColor&#39;:&#39;#fafafa&#39;,
+    &#39;primaryTextColor&#39;:&#39;#1f2937&#39;,
+    &#39;primaryBorderColor&#39;:&#39;#9ca3af&#39;,
+    &#39;lineColor&#39;:&#39;#9ca3af&#39;,
+    &#39;edgeLabelBackground&#39;:&#39;#ffffff&#39;
+}}}%%
+flowchart LR
+    classDef cpu fill:#f9fafb,stroke:#9ca3af,color:#111827,stroke-width:1px
+    classDef gpu fill:#eef2ff,stroke:#6366f1,color:#3730a3,stroke-width:1px
+    classDef out fill:#f0fdf4,stroke:#22c55e,color:#14532d,stroke-width:1px
+
+    SAMP([sample])
+    CPU([CPU prep])
+    H2D([H2D])
+    AUG([GPU aug])
+    FWD([forward])
+    BWD([backward])
+    LOG([loggers])
+
+    SAMP --&gt; CPU --&gt; H2D --&gt; AUG --&gt; FWD --&gt; BWD --&gt; LOG
+    FWD -. callbacks .-&gt; LOG
+
+    class SAMP cpu
+    class CPU cpu
+    class H2D cpu
+    class AUG gpu
+    class FWD gpu
+    class BWD gpu
+    class LOG out
+</pre></div>
+</div>
+<p>Read left-to-right. <em>Slate</em> runs on CPU (decode, resize, pinned H2D).
+<em>Indigo</em> runs on GPU — including the augmentation that traditionally
+lived on CPU. The dotted arrow shows callbacks tapping the same state
+dict the loss is computed from, without touching the loop.</p>
+<p>The dict-everywhere design means callbacks attach without modifying the
+training loop, GPU augmentation slots in via <code class="docutils literal notranslate"><span class="pre">dataset.gpu_transform=</span></code>
+(see <a class="reference internal" href="api/data/#module-stable_pretraining.data" title="stable_pretraining.data"><span class="xref myst py py-mod">§GPU-side batched augmentation</span></a>), and any intermediate
+quantity in the state dict is automatically available to loggers.</p>
+<p><a id="jax-backend"></a></p>
+</section>
+<section id="jax-backend-experimental">
+<h2>JAX backend (experimental)<a class="headerlink" href="#jax-backend-experimental" title="Link to this heading">#</a></h2>
+<p>A parallel <strong>JAX / <a class="reference external" href="https://flax.readthedocs.io/en/latest/nnx/">Flax-NNX</a></strong>
+backend lives under <code class="docutils literal notranslate"><span class="pre">stable_pretraining.jax</span></code> (install with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">&quot;.[jax]&quot;</span></code>).
+It is <strong>opt-in and isolated</strong> — <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">stable_pretraining</span></code> never imports JAX —
+and it mirrors the torch design: a stateless <code class="docutils literal notranslate"><span class="pre">forward(self,</span> <span class="pre">batch,</span> <span class="pre">stage)</span></code> that
+returns a state <strong>dict</strong>, callbacks that read that dict under the same
+Lightning-style hooks, and a <code class="docutils literal notranslate"><span class="pre">Manager</span></code> with the same <code class="docutils literal notranslate"><span class="pre">cache_dir</span></code> run-dir layout</p>
+<ul class="simple">
+<li><p>SLURM preempt/requeue + atomic checkpoints. The engine underneath is
+JAX-native (<code class="docutils literal notranslate"><span class="pre">nnx.value_and_grad</span></code> + <code class="docutils literal notranslate"><span class="pre">optax</span></code>, <code class="docutils literal notranslate"><span class="pre">nnx.jit</span></code>), and metrics are plain
+<code class="docutils literal notranslate"><span class="pre">jnp</span></code>/NumPy — <strong>no torchmetrics</strong>.</p></li>
+</ul>
+<p>The same minimal SimCLR run, side by side:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ---- PyTorch / Lightning -------------------     # ---- JAX / Flax-NNX ----------------------------</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">stable_pretraining</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">spt</span>                    <span class="kn">import</span><span class="w"> </span><span class="nn">stable_pretraining.jax</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">spj</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span><span class="o">,</span><span class="w"> </span><span class="nn">lightning</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>                       <span class="kn">from</span><span class="w"> </span><span class="nn">flax</span><span class="w"> </span><span class="kn">import</span> <span class="n">nnx</span>
+                                                     <span class="n">rngs</span> <span class="o">=</span> <span class="n">nnx</span><span class="o">.</span><span class="n">Rngs</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">module</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">Module</span><span class="p">(</span>                                 <span class="n">module</span> <span class="o">=</span> <span class="n">spj</span><span class="o">.</span><span class="n">Module</span><span class="p">(</span>
+    <span class="n">forward</span><span class="o">=</span><span class="n">spt</span><span class="o">.</span><span class="n">forward</span><span class="o">.</span><span class="n">simclr</span><span class="p">,</span>                          <span class="n">forward</span><span class="o">=</span><span class="n">spj</span><span class="o">.</span><span class="n">forward</span><span class="o">.</span><span class="n">simclr</span><span class="p">,</span>
+    <span class="n">backbone</span><span class="o">=</span><span class="n">spt</span><span class="o">.</span><span class="n">backbone</span><span class="o">.</span><span class="n">from_torchvision</span><span class="p">(</span>              <span class="n">backbone</span><span class="o">=</span><span class="n">spj</span><span class="o">.</span><span class="n">backbone</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span>
+        <span class="s2">&quot;resnet18&quot;</span><span class="p">,</span> <span class="n">low_resolution</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>                    <span class="n">rngs</span><span class="o">=</span><span class="n">rngs</span><span class="p">,</span> <span class="n">low_resolution</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">projector</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span>                 <span class="n">projector</span><span class="o">=</span><span class="n">spj</span><span class="o">.</span><span class="n">backbone</span><span class="o">.</span><span class="n">MLP</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="p">[</span><span class="mi">128</span><span class="p">],</span> <span class="n">rngs</span><span class="o">=</span><span class="n">rngs</span><span class="p">),</span>
+    <span class="n">simclr_loss</span><span class="o">=</span><span class="n">spt</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">NTXEntLoss</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span>              <span class="n">simclr_loss</span><span class="o">=</span><span class="n">spj</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">NTXEntLoss</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span>
+    <span class="n">optim</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;optimizer&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;LARS&quot;</span><span class="p">,</span>                 <span class="n">optim</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;lars&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">}},</span>                                 <span class="s2">&quot;learning_rate&quot;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">},</span>
+<span class="p">)</span>                                                    <span class="p">)</span>
+<span class="n">probe</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">OnlineProbe</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;probe&quot;</span><span class="p">,</span>        <span class="n">probe</span> <span class="o">=</span> <span class="n">spj</span><span class="o">.</span><span class="n">OnlineProbe</span><span class="p">(</span><span class="s2">&quot;probe&quot;</span><span class="p">,</span>
+    <span class="nb">input</span><span class="o">=</span><span class="s2">&quot;embedding&quot;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span>                   <span class="n">probe</span><span class="o">=</span><span class="n">nnx</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">rngs</span><span class="o">=</span><span class="n">rngs</span><span class="p">))</span>
+    <span class="n">probe</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+    <span class="n">loss</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">())</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">max_epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>                 <span class="n">trainer</span> <span class="o">=</span> <span class="n">spj</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">max_epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                     <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">probe</span><span class="p">])</span>                                    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">probe</span><span class="p">])</span>
+<span class="n">spt</span><span class="o">.</span><span class="n">Manager</span><span class="p">(</span><span class="n">trainer</span><span class="o">=</span><span class="n">trainer</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>          <span class="n">spj</span><span class="o">.</span><span class="n">Manager</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">dm</span><span class="p">)()</span>                                           <span class="n">train_loader</span><span class="p">,</span> <span class="n">val_loader</span><span class="p">)()</span>
+</pre></div>
+</div>
+<p><strong>Multi-GPU</strong> is one flag — <code class="docutils literal notranslate"><span class="pre">spj.Trainer(...,</span> <span class="pre">data_parallel=True)</span></code> shards each
+batch across all visible devices (SPMD); <strong>bf16</strong> mixed precision is
+<code class="docutils literal notranslate"><span class="pre">dtype=jnp.bfloat16</span></code> on the backbone.</p>
+<p><strong>What’s available today:</strong> methods SimCLR / VICReg / Barlow Twins / SimSiam /
+BYOL; backbones MLP / ResNet-{9,18,34,50,101,152} / ConvMixer / ViT-{tiny,small,
+base,large}; losses NT-Xent / InfoNCE / BYOL / VICReg / Barlow Twins / SwAV-Sinkhorn /
+neg-cosine; callbacks <code class="docutils literal notranslate"><span class="pre">OnlineProbe</span></code>, <code class="docutils literal notranslate"><span class="pre">OnlineKNN</span></code>, <code class="docutils literal notranslate"><span class="pre">RankMe</span></code>, <code class="docutils literal notranslate"><span class="pre">LiDAR</span></code>,
+<code class="docutils literal notranslate"><span class="pre">OnlineQueue</span></code>, <code class="docutils literal notranslate"><span class="pre">OnlineWriter</span></code>, <code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code>, EMA <code class="docutils literal notranslate"><span class="pre">TeacherStudentCallback</span></code>;
+checkpointing + exact resume; on-device augmentation (<code class="docutils literal notranslate"><span class="pre">spj.augment</span></code>). Every
+torch↔JAX numerical claim above is covered by parity regression tests.</p>
+<p><strong>Logging is identical to the torch path</strong> — not reimplemented. The JAX
+<code class="docutils literal notranslate"><span class="pre">Trainer</span></code> drives the <em>same</em> logger classes (<code class="docutils literal notranslate"><span class="pre">RegistryLogger</span></code>, WandB, Trackio,
+SwanLab) via <code class="docutils literal notranslate"><span class="pre">logger=</span></code>, <code class="docutils literal notranslate"><span class="pre">Module.log(name,</span> <span class="pre">value)</span></code> matches, and metric keys are
+the same (<code class="docutils literal notranslate"><span class="pre">fit/loss</span></code>, <code class="docutils literal notranslate"><span class="pre">train/&lt;p&gt;_loss</span></code>, <code class="docutils literal notranslate"><span class="pre">eval/&lt;p&gt;_acc</span></code>, bare <code class="docutils literal notranslate"><span class="pre">rankme</span></code>/<code class="docutils literal notranslate"><span class="pre">lidar</span></code>, …).
+<code class="docutils literal notranslate"><span class="pre">spj.Manager</span></code> auto-attaches the <code class="docutils literal notranslate"><span class="pre">RegistryLogger</span></code>, so JAX runs write the same
+<code class="docutils literal notranslate"><span class="pre">sidecar.json</span></code> and show up in <code class="docutils literal notranslate"><span class="pre">spt</span> <span class="pre">registry</span> <span class="pre">ls/best/...</span></code> exactly like torch runs.
+Metrics use plain <code class="docutils literal notranslate"><span class="pre">jnp</span></code>/NumPy — no torchmetrics.</p>
+<p><strong>Still pending (vs the torch path):</strong> DINO/DINOv2/MAE/I-JEPA methods, the full
+ViT feature set (SwiGLU/QK-norm/RoPE), video backbones, and a few niche
+callbacks. Contributions welcome.</p>
 <p><a id="core-structure"></a></p>
 </section>
 <section id="core-structure">
@@ -586,7 +793,141 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">datamodule</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataModule</span><span class="p">(</span><span class="n">train</span><span class="o">=</span><span class="n">train_dataloader</span><span class="p">,</span> <span class="n">val</span><span class="o">=</span><span class="n">val_dataloader</span><span class="p">)</span>
 </pre></div>
 </div>
+<section id="gpu-side-batched-augmentation-gpu-transform">
+<h4>GPU-side batched augmentation (<code class="docutils literal notranslate"><span class="pre">gpu_transform</span></code>)<a class="headerlink" href="#gpu-side-batched-augmentation-gpu-transform" title="Link to this heading">#</a></h4>
+<p>SSL augmentation traditionally runs per-sample in DataLoader workers
+(PIL + torchvision). On modern accelerators that becomes the
+bottleneck: CPU workers can’t keep up with the GPU on heavy multi-view
+recipes. Moving augmentation to the GPU via
+<a class="reference external" href="https://kornia.readthedocs.io/">kornia</a> inside Lightning’s
+<code class="docutils literal notranslate"><span class="pre">on_after_batch_transfer</span></code> hook vectorises it across the batch and
+frees CPU workers to do more I/O in parallel.</p>
+<p>We measure substantial end-to-end throughput improvements across
+model sizes and precisions — see
+<a class="reference internal" href="#benchmarks/imagenet10/RESULTS.md"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">benchmarks/imagenet10/RESULTS.md</span></code></span></a>
+for the full sweep (ViT-S/16, ViT-L/16; fp16 / bf16 / FP8;
+torch.compile on/off; various batch sizes).</p>
+<section id="before-torchvision-augmentation-in-cpu-workers">
+<h5>Before — torchvision augmentation in CPU workers<a class="headerlink" href="#before-torchvision-augmentation-in-cpu-workers" title="Link to this heading">#</a></h5>
+<p>The historical SSL recipe: every random transform runs per-sample
+inside the DataLoader workers. <code class="docutils literal notranslate"><span class="pre">MultiViewTransform</span></code> produces both
+views on the CPU side.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">stable_pretraining.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">transforms</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">stable_pretraining</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">spt</span>
+
+<span class="n">train_transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">MultiViewTransform</span><span class="p">([</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">(</span>                        <span class="c1"># view 1</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">RGB</span><span class="p">(),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">RandomResizedCrop</span><span class="p">((</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">ColorJitter</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">RandomGrayscale</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.2</span><span class="p">),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">PILGaussianBlur</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">RandomHorizontalFlip</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">ToImage</span><span class="p">(</span><span class="o">**</span><span class="n">spt</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">static</span><span class="o">.</span><span class="n">ImageNet</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">(</span>                        <span class="c1"># view 2 — same recipe</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">RGB</span><span class="p">(),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">RandomResizedCrop</span><span class="p">((</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">ColorJitter</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">RandomGrayscale</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.2</span><span class="p">),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">PILGaussianBlur</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">RandomHorizontalFlip</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
+        <span class="n">transforms</span><span class="o">.</span><span class="n">ToImage</span><span class="p">(</span><span class="o">**</span><span class="n">spt</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">static</span><span class="o">.</span><span class="n">ImageNet</span><span class="p">),</span>
+    <span class="p">),</span>
+<span class="p">])</span>
+
+<span class="n">train_ds</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">HFDataset</span><span class="p">(</span>
+    <span class="s2">&quot;frgfm/imagenette&quot;</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">,</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">train_transform</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="after-same-augs-batched-on-the-gpu">
+<h5>After — same augs, batched on the GPU<a class="headerlink" href="#after-same-augs-batched-on-the-gpu" title="Link to this heading">#</a></h5>
+<p>The CPU transform shrinks to “decode + resize”. The augmentation chain
+runs on the GPU, and <code class="docutils literal notranslate"><span class="pre">StackedMultiView</span></code> produces N views from one
+source tensor in a single chain call (symmetric SSL — Barlow Twins,
+SimCLR, VICReg, NNCLR, LeJEPA).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">stable_pretraining.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">transforms</span><span class="p">,</span> <span class="n">gpu_transforms</span> <span class="k">as</span> <span class="n">gt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">stable_pretraining</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">spt</span>
+
+<span class="c1"># CPU side: just decode + resize. rgb=True folds in the old RGB() call.</span>
+<span class="n">cpu_transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">(</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">((</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">)),</span>
+    <span class="n">transforms</span><span class="o">.</span><span class="n">ToImage</span><span class="p">(</span><span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># GPU side: same six augs, batched on device.</span>
+<span class="n">train_aug</span> <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">StackedMultiView</span><span class="p">(</span>
+    <span class="n">gt</span><span class="o">.</span><span class="n">GPUCompose</span><span class="p">([</span>
+        <span class="n">gt</span><span class="o">.</span><span class="n">GPURandomResizedCrop</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">224</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)),</span>
+        <span class="n">gt</span><span class="o">.</span><span class="n">GPURandomHorizontalFlip</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
+        <span class="n">gt</span><span class="o">.</span><span class="n">GPUColorJitter</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
+        <span class="n">gt</span><span class="o">.</span><span class="n">GPURandomGrayscale</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.2</span><span class="p">),</span>
+        <span class="n">gt</span><span class="o">.</span><span class="n">GPUGaussianBlur</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
+        <span class="n">gt</span><span class="o">.</span><span class="n">GPUNormalize</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="n">std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">]),</span>
+    <span class="p">]),</span>
+    <span class="n">n_views</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>        <span class="c1"># use 8 for LeJEPA multi-view; or use gt.MultiView([c1, c2, ...]) for asymmetric methods like BYOL / DINO</span>
+<span class="p">)</span>
+
+<span class="n">train_ds</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">HFDataset</span><span class="p">(</span>
+    <span class="s2">&quot;frgfm/imagenette&quot;</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">,</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">cpu_transform</span><span class="p">,</span>
+    <span class="n">gpu_transform</span><span class="o">=</span><span class="n">train_aug</span><span class="p">,</span>   <span class="c1"># ← new arg; everything else stays the same</span>
+<span class="p">)</span>
+<span class="c1"># val_ds: no gpu_transform — validation is already normalized on CPU.</span>
+</pre></div>
+</div>
+</section>
+<section id="what-changed">
+<h5>What changed<a class="headerlink" href="#what-changed" title="Link to this heading">#</a></h5>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Concern</p></th>
+<th class="head"><p>Before</p></th>
+<th class="head"><p>After</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Where random aug runs</p></td>
+<td><p>per-sample, CPU workers</p></td>
+<td><p>per-batch, GPU</p></td>
+</tr>
+<tr class="row-odd"><td><p>Decode / RGB / resize</p></td>
+<td><p>CPU</p></td>
+<td><p>CPU (unchanged)</p></td>
+</tr>
+<tr class="row-even"><td><p>View fan-out</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MultiViewTransform([t1,</span> <span class="pre">t2,</span> <span class="pre">...])</span></code> on CPU</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gt.StackedMultiView(chain,</span> <span class="pre">n_views=N)</span></code> on GPU</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dataset arg</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">transform=...</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">transform=...</span></code> + <code class="docutils literal notranslate"><span class="pre">gpu_transform=...</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Module / Trainer code</p></td>
+<td><p>unchanged</p></td>
+<td><p>unchanged</p></td>
+</tr>
+<tr class="row-odd"><td><p>Loss / metrics</p></td>
+<td><p>unchanged</p></td>
+<td><p>unchanged</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Module.on_after_batch_transfer</span></code> discovers <code class="docutils literal notranslate"><span class="pre">gpu_transform</span></code> through
+the active DataLoader. Resolution order: <code class="docutils literal notranslate"><span class="pre">dataset.gpu_transform</span></code> (1)
+→ <code class="docutils literal notranslate"><span class="pre">datamodule.gpu_transform</span></code> (2, callable or <code class="docutils literal notranslate"><span class="pre">{&quot;train&quot;:</span> <span class="pre">...,</span> <span class="pre">&quot;val&quot;:</span> <span class="pre">...}</span></code>
+dict for third-party datasets you can’t modify). Setting it on the
+Module is rejected at <code class="docutils literal notranslate"><span class="pre">on_train_start</span></code> — two routes to the same thing
+is a footgun. The resolved transform is auto-moved to <code class="docutils literal notranslate"><span class="pre">self.device</span></code>
+on first use (DDP-safe) and dropped during dataset pickling so
+DataLoader workers never serialise the nn.Module.</p>
 <p><a id="module"></a></p>
+</section>
+</section>
 </section>
 <section id="module">
 <h3>2 - Module<a class="headerlink" href="#module" title="Link to this heading">#</a></h3>
@@ -598,7 +939,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <span class="n">module</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">Module</span><span class="p">(</span>
     <span class="n">backbone</span><span class="o">=</span><span class="n">backbone</span><span class="p">,</span>
     <span class="n">projector</span><span class="o">=</span><span class="n">projector</span><span class="p">,</span>
-    <span class="n">forward</span><span class="o">=</span><span class="n">forward</span><span class="o">.</span><span class="n">simclr_forward</span><span class="p">,</span>  <span class="c1"># Or byol_forward, vicreg_forward, etc.</span>
+    <span class="n">forward</span><span class="o">=</span><span class="n">forward</span><span class="o">.</span><span class="n">simclr</span><span class="p">,</span>  <span class="c1"># Or byol, vicreg, etc.</span>
     <span class="n">simclr_loss</span><span class="o">=</span><span class="n">spt</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">NTXEntLoss</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
     <span class="n">optim</span><span class="o">=</span><span class="p">{</span>
         <span class="s2">&quot;optimizer&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Adam&quot;</span><span class="p">,</span> <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="mf">0.001</span><span class="p">},</span>
@@ -808,6 +1149,79 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </pre></div>
 </div>
 <p>Once configured, the <code class="docutils literal notranslate"><span class="pre">Manager</span></code> connects all components and handles the training loop with precise logging and monitoring (optional).</p>
+</section>
+<section id="sharded-training-fsdp2-deepspeed">
+<h3>Sharded training: FSDP2 &amp; DeepSpeed<a class="headerlink" href="#sharded-training-fsdp2-deepspeed" title="Link to this heading">#</a></h3>
+<p>For large models, shard parameters/gradients/optimizer state across GPUs by flipping a single trainer switch — no changes to your method, forward, or model. <strong>FSDP2</strong> (<code class="docutils literal notranslate"><span class="pre">strategy=&quot;fsdp2&quot;</span></code>) is the recommended path: it supports the full library (including teacher/student EMA and the online-probe callbacks) and is verified numerically equivalent to DDP. <strong>DeepSpeed</strong> ZeRO-3 (<code class="docutils literal notranslate"><span class="pre">strategy=&quot;deepspeed_stage_3&quot;</span></code>, install <code class="docutils literal notranslate"><span class="pre">&quot;.[deepspeed]&quot;</span></code>) is <em>partially</em> supported — single-optimizer methods only; it hard-errors with multiple optimizers, so it can’t be used with EMA methods or the online probes (use FSDP2 there). See <a class="reference internal" href="#docs/source/fsdp2.rst"><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">docs/source/fsdp2.rst</span></code></span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;fsdp2&quot;</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="s2">&quot;bf16-mixed&quot;</span><span class="p">,</span> <span class="n">accelerator</span><span class="o">=</span><span class="s2">&quot;gpu&quot;</span><span class="p">,</span> <span class="n">devices</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Practical notes:</p>
+<ul class="simple">
+<li><p><strong>The strategy string is the only code change</strong> — your model, forward, optimizer, and callbacks are untouched.</p></li>
+<li><p><strong>Precision:</strong> use <code class="docutils literal notranslate"><span class="pre">&quot;bf16-mixed&quot;</span></code> — FSDP2’s <code class="docutils literal notranslate"><span class="pre">ModelParallelStrategy</span></code> rejects <code class="docutils literal notranslate"><span class="pre">&quot;16-mixed&quot;</span></code>.</p></li>
+<li><p><strong>DeepSpeed:</strong> <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">&quot;.[deepspeed]&quot;</span></code> first; it’s <strong>single-optimizer only</strong> (online probes / EMA methods raise a clear error pointing you back to FSDP2).</p></li>
+<li><p><strong>Launching on SLURM:</strong> start one task per GPU — <code class="docutils literal notranslate"><span class="pre">srun</span> <span class="pre">--ntasks=8</span> <span class="pre">--gres=gpu:8</span> <span class="pre">--ntasks-per-node=8</span> <span class="pre">python</span> <span class="pre">train.py</span></code> — because Lightning derives the world size from <code class="docutils literal notranslate"><span class="pre">SLURM_NTASKS</span></code>, not <code class="docutils literal notranslate"><span class="pre">devices=</span></code>. Off SLURM, just set <code class="docutils literal notranslate"><span class="pre">devices=8</span></code> and Lightning spawns the workers itself.</p></li>
+<li><p><strong>Debugging:</strong> when sharding is active, the log prints an <code class="docutils literal notranslate"><span class="pre">FSDP2</span> <span class="pre">configure_model</span></code> header, the resolved strategy summary (<code class="docutils literal notranslate"><span class="pre">{fsdp2:</span> <span class="pre">True,</span> <span class="pre">data_parallel_size:</span> <span class="pre">8,</span> <span class="pre">...}</span></code>), and which subtrees were sharded — so you can confirm at a glance that it’s sharding over the expected number of ranks.</p></li>
+</ul>
+<p>Sharding trades a little throughput for memory; the per-GPU saving scales with model size and rank count (<code class="docutils literal notranslate"><span class="pre">(R−1)/R</span> <span class="pre">×</span> <span class="pre">(params</span> <span class="pre">+</span> <span class="pre">grads</span> <span class="pre">+</span> <span class="pre">optimizer</span> <span class="pre">state)</span></code>). On a small model the saved state is dwarfed by activations (which sharding does not touch), so the win looks modest — but it grows fast with scale. Measured on Imagenette, H200, bf16:</p>
+<p><strong>ViT-L/16 (300M), 2 GPUs, batch 256</strong> — small model, modest gap:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>strategy</p></th>
+<th class="head"><p>peak mem/GPU</p></th>
+<th class="head"><p>img/s</p></th>
+<th class="head"><p>notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DDP</p></td>
+<td><p>90.5 GiB</p></td>
+<td><p>960</p></td>
+<td><p>full replica per GPU</p></td>
+</tr>
+<tr class="row-odd"><td><p>FSDP2</p></td>
+<td><p>87.7 GiB</p></td>
+<td><p>930</p></td>
+<td><p>balanced default; full library support</p></td>
+</tr>
+<tr class="row-even"><td><p>DeepSpeed ZeRO-3</p></td>
+<td><p>77.7 GiB</p></td>
+<td><p>703</p></td>
+<td><p>more memory saved, lower throughput; single-optimizer only</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>ViT-e/14 (3.8B), 8 GPUs, batch 16</strong> — large model, the gap is decisive:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>strategy</p></th>
+<th class="head"><p>peak mem/GPU</p></th>
+<th class="head"><p>img/s</p></th>
+<th class="head"><p>notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DDP</p></td>
+<td><p>113.1 GiB</p></td>
+<td><p>225</p></td>
+<td><p>replicates the full ~76 GiB of params+grads+optimizer state on every GPU</p></td>
+</tr>
+<tr class="row-odd"><td><p>FSDP2</p></td>
+<td><p>62.2 GiB</p></td>
+<td><p>214</p></td>
+<td><p>shards that state 8 ways → <strong>−45% memory</strong> for ~4% throughput</p></td>
+</tr>
+<tr class="row-even"><td><p>DeepSpeed ZeRO-3</p></td>
+<td><p>46.6 GiB</p></td>
+<td><p>83</p></td>
+<td><p>shards most aggressively (<strong>−59% memory</strong>) but ~2.6× slower than FSDP2 here; single-optimizer only</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>At batch 64 <em>both</em> DDP and FSDP2 OOM (activations, which neither shards, become the wall) — combine sharding with activation checkpointing for the largest models. The trade-off sharpens with scale: FSDP2 is the throughput-friendly default, while DeepSpeed ZeRO-3 buys the most memory headroom at a real speed cost.</p>
 <p><a id="global-configuration"></a></p>
 </section>
 </section>
@@ -1122,47 +1536,47 @@ spt<span class="w"> </span>registry<span class="w"> </span>migrate<span class="w
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Supervised</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">forward.supervised_forward</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.supervised</span></code></p></td>
 <td><p>any</p></td>
 <td><p>Standard supervised training with labels</p></td>
 </tr>
 <tr class="row-odd"><td><p>SimCLR</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">forward.simclr_forward</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.simclr</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">NTXEntLoss</span></code></p></td>
 <td><p>Contrastive learning with 2 augmented views</p></td>
 </tr>
 <tr class="row-even"><td><p>BYOL</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">forward.byol_forward</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.byol</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">BYOLLoss</span></code></p></td>
 <td><p>Momentum-based self-distillation without negatives</p></td>
 </tr>
 <tr class="row-odd"><td><p>VICReg</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">forward.vicreg_forward</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.vicreg</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">VICRegLoss</span></code></p></td>
 <td><p>Variance-invariance-covariance regularization</p></td>
 </tr>
 <tr class="row-even"><td><p>Barlow Twins</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">forward.barlow_twins_forward</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.barlow_twins</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">BarlowTwinsLoss</span></code></p></td>
 <td><p>Cross-correlation matrix alignment to identity</p></td>
 </tr>
 <tr class="row-odd"><td><p>SwAV</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">forward.swav_forward</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.swav</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">SwAVLoss</span></code></p></td>
 <td><p>Online clustering with Sinkhorn-Knopp normalization</p></td>
 </tr>
 <tr class="row-even"><td><p>NNCLR</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">forward.nnclr_forward</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.nnclr</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">NTXEntLoss</span></code></p></td>
 <td><p>Nearest-neighbor contrastive learning</p></td>
 </tr>
 <tr class="row-odd"><td><p>DINO</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">forward.dino_forward</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.dino</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">DINOv1Loss</span></code></p></td>
 <td><p>Self-distillation with multi-crop and centering</p></td>
 </tr>
 <tr class="row-even"><td><p>DINOv2</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">forward.dinov2_forward</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">forward.dinov2</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">DINOv2Loss</span></code>, <code class="docutils literal notranslate"><span class="pre">iBOTPatchLoss</span></code></p></td>
 <td><p>DINO + iBOT masked patch prediction</p></td>
 </tr>
@@ -1322,7 +1736,7 @@ spt<span class="w"> </span>registry<span class="w"> </span>migrate<span class="w
 <span class="n">module</span> <span class="o">=</span> <span class="n">spt</span><span class="o">.</span><span class="n">Module</span><span class="p">(</span>
     <span class="n">backbone</span><span class="o">=</span><span class="n">backbone</span><span class="p">,</span>
     <span class="n">projector</span><span class="o">=</span><span class="n">projector</span><span class="p">,</span>
-    <span class="n">forward</span><span class="o">=</span><span class="n">forward</span><span class="o">.</span><span class="n">simclr_forward</span><span class="p">,</span>  <span class="c1"># Use the built-in forward function</span>
+    <span class="n">forward</span><span class="o">=</span><span class="n">forward</span><span class="o">.</span><span class="n">simclr</span><span class="p">,</span>  <span class="c1"># Use the built-in forward function</span>
     <span class="n">simclr_loss</span><span class="o">=</span><span class="n">spt</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">NTXEntLoss</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
     <span class="n">optim</span><span class="o">=</span><span class="p">{</span>
         <span class="s2">&quot;optimizer&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;LARS&quot;</span><span class="p">,</span> <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;weight_decay&quot;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">},</span>
@@ -1775,8 +2189,18 @@ loading, <code class="docutils literal notranslate"><span class="pre">Module</sp
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how">How?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-setup">Quick setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#second-tour">30-second tour</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jax-backend-experimental">JAX backend (experimental)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-structure">Core Structure</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">1 - Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">1 - Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-side-batched-augmentation-gpu-transform">GPU-side batched augmentation (<code class="docutils literal notranslate"><span class="pre">gpu_transform</span></code>)</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#before-torchvision-augmentation-in-cpu-workers">Before — torchvision augmentation in CPU workers</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#after-same-augs-batched-on-the-gpu">After — same augs, batched on the GPU</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#what-changed">What changed</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#module">2 - Module</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#callbacks">3 - Callbacks</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-monitoring">Evaluation &amp; Monitoring</a></li>
@@ -1787,6 +2211,7 @@ loading, <code class="docutils literal notranslate"><span class="pre">Module</sp
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trainer">4 - Trainer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sharded-training-fsdp2-deepspeed">Sharded training: FSDP2 &amp; DeepSpeed</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-configuration">Global Configuration</a></li>
